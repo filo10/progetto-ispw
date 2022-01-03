@@ -34,10 +34,10 @@ BlaBlaCar
 
 ## User Stories
 
-1. As a student without a car, I want to find a ride, so that I can reduce my commute time. [FB]
-2. As a user, I want to know if a driver is recommendable, so that I feel safe going with her/him. [FB]
+1. As a student without a car, I want to find a lift, so that I can reduce my commute time. [FB]
+2. As a user, I want to know if a driver is recommendable, so that I can choose to go with her/him or not. [FB]
 3. As a student that goes to the University by car all alone, I want to share my trip with collegues, so that I can do my part in reducing carbon emission. [FB]
-4. As a Passenger, I want to delete a seat I reserved, so that it can be available again for someone else. [FG]
+4. As a passenger, I want to delete a seat I reserved, so that it can be available again for someone else. [FG]
 5. As a System Administrator, I want to ban a bad user, so that the community can always be safe. [FG]
 6. As a driver, I want to see passengers' rating, so that I can decide to accept or not their request for a ride. [FG]
 
@@ -46,9 +46,12 @@ BlaBlaCar
 1. The system shall provide an user rating function. [FB]
 2. The system shall list available rides to a destination ordered by increasing distance from the start point. [FB]
 3. The system shall permit the publication of rides that have one of the University's Departments as a start or finish point. [FB]
-4. The system shall **allow** Drivers to delete their ride. [FG]
+4. The system shall allow Drivers to delete their ride. [FG]
 5. The system shall provide the staff with a function to ban users. [FG]
 6. The system shall provide the driver with passengers' phone number and viceversa. [FG]
 
 ## Use Cases: Overview Diagram
 
+![](C:\Users\fili_\Desktop\UseCaseOverviewDiagram.svg)
+
+**TODO** scrivi dei commenti sul diagramma
