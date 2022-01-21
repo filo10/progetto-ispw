@@ -60,7 +60,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>it.uniroma2.progettoispw/it.uniroma2.progettoispw.HelloApplication</mainClass>
+                            <mainClass>it.uniroma2.progettoispw/it.uniroma2.progettoispw.MyApplication</mainClass>
                         </configuration>
                     </execution>
                 </executions>

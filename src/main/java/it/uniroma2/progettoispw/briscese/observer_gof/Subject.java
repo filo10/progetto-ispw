@@ -1,9 +1,10 @@
 package it.uniroma2.progettoispw.briscese.observer_gof;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Subject {
-	private List<Observer> observers;
+	protected List<Observer> observers = new ArrayList<>();
 
 	public void attach(Observer observer) {
 		observers.add(observer);

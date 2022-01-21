@@ -17,4 +17,12 @@ public class License {
 	public void setOwner(Driver owner) {
 		this.owner = owner;
 	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public LocalDate getExpiration() {
+		return expiration;
+	}
 }

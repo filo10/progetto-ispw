@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="CENTER" prefHeight="500.0" prefWidth="400.0" spacing="32.0" style="-fx-background-color: #2B9348;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniroma2.progettoispw.briscese.gui1.LoginViewController">
+   <children>
+      <Label text="Ubergata" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Lucida Sans Demibold Roman" size="48.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="32.0" />
+         </VBox.margin>
+      </Label>
+      <TextField fx:id="usernameTextField" alignment="CENTER" maxWidth="-Infinity" prefWidth="200.0" promptText="matricola" />
+      <PasswordField fx:id="passwordField" alignment="CENTER" maxWidth="-Infinity" prefWidth="200.0" promptText="password" />
+      <HBox alignment="CENTER" prefWidth="200.0" spacing="16.0">
+         <children>
+            <Button alignment="CENTER" defaultButton="true" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onLoginButtonClick" prefWidth="80.0" text="Log in" textAlignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="80.0" text="Sign up" textAlignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children>
+         <VBox.margin>
+            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+         </VBox.margin>
+      </HBox>
+      <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" style="-fx-background-color: red;" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+   </children>
+   <padding>
+      <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+   </padding>
+</VBox>

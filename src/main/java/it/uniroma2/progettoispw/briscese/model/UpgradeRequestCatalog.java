@@ -1,26 +1,35 @@
 package it.uniroma2.progettoispw.briscese.model;
 
+import it.uniroma2.progettoispw.briscese.controller.UpgradeToDriverController;
+import it.uniroma2.progettoispw.briscese.observer_gof.Subject;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class UpgradeRequestCatalog {	// TODO synchronized ???
-	private static UpgradeRequestCatalog instance;
-	private int nextId = 1; // TODO setta il valore giusto di nextId nel costruttore...
-	private List<UpgradeRequest> requests = new ArrayList<>();
+public class UpgradeRequestCatalog extends Subject {
+	private static UpgradeRequestCatalog instance = null;
+
+	private int nextId;
+	private List<UpgradeRequest> requests;
 
 
-	private UpgradeRequestCatalog() {}
+	protected UpgradeRequestCatalog() {
+		this.nextId = 1; // TODO setta il valore giusto da db
+		this.requests = new ArrayList<>();
+	}
 
-	public static UpgradeRequestCatalog getInstance() {
-		if (instance == null)
-			instance = new UpgradeRequestCatalog();
+	public static synchronized UpgradeRequestCatalog getInstance() {
+		if (UpgradeRequestCatalog.instance == null)
+			UpgradeRequestCatalog.instance = new UpgradeRequestCatalog();
 		return instance;
 	}
 
-	public UpgradeRequest newRequest(User requestant, License license) {
-		UpgradeRequest newRequest = new UpgradeRequest(nextId, requestant, license);
+	public UpgradeRequest newRequest(UpgradeToDriverController controller, User requestant, License license) {
+		UpgradeRequest newRequest = new UpgradeRequest(controller, nextId, requestant, license);
 		nextId++;
 		requests.add(newRequest);
+
+		notifyObservers();
 
 		return newRequest;
 	}
@@ -36,5 +45,11 @@ public class UpgradeRequestCatalog {	// TODO synchronized ???
 		return returnList;
 	}
 
-	// TODO public UpgradeRequest findRequest(int id)
+	public UpgradeRequest findRequest(int id) {
+		for (UpgradeRequest req : requests) {
+			if (req.getRequestId() == id)
+				return req;
+		}
+		return null; // TODO oppure lancia eccezione?
+	}
 }

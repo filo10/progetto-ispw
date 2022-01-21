@@ -1,13 +1,24 @@
 package it.uniroma2.progettoispw.briscese.model;
 
+import it.uniroma2.progettoispw.briscese.model.roles.Passenger;
 import it.uniroma2.progettoispw.briscese.model.roles.UserRole;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class User {
 	private int userId;
 	private String fullName;
+	private String password;
 	private List<UserRole> roles;
+
+	public User(int userId, String fullName, String password, Passenger passenger) {
+		this.userId = userId;
+		this.fullName = fullName;
+		this.password = password;
+		this.roles = new ArrayList<>();
+		this.roles.add(passenger);
+	}
 
 
 	public boolean hasRole(String roleName) {
@@ -18,7 +29,7 @@ public class User {
 		return false;
 	}
 
-	public UserRole getRole(String roleName) {
+	public UserRole getRoleInstance(String roleName) {
 		for (UserRole userRole : roles) {
 			if (userRole.hasType(roleName))
 				return userRole;
@@ -39,5 +50,13 @@ public class User {
 			return value.hasType("driver");    // can be also a Driver
 		}
 		return false;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public boolean checkPassword(String hash) {
+		return this.password == hash;
 	}
 }
