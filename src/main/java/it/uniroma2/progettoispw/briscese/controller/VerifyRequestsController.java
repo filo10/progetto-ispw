@@ -10,7 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VerifyRequestsController extends Subject implements Observer {
-	// questa classe osserva il catalogo richieste per essere notificato quando viene creata una nuova richiesta e girarla alla view
+	// observs UpgradeRequestCatalog for new requests,
+	// sends notification to view layer classes subscribed to one instance of this class
 
 	public VerifyRequestsController() {
 		UpgradeRequestCatalog.getInstance().attach(this);
@@ -25,7 +26,7 @@ public class VerifyRequestsController extends Subject implements Observer {
 		List<RequestBean> list = new ArrayList<>();
 
 		for (UpgradeRequest ur : UpgradeRequestCatalog.getInstance().getPendingRequests()) {
-			RequestBean newBean = new RequestBean(ur.getRequestId(), ur.getRequestant().getUserId(), ur.getLicense().getCode(), ur.getLicense().getExpiration());
+			RequestBean newBean = new RequestBean(ur.getRequestId(), ur.getRequestant().getUserId(), ur.getLicenseCode(), ur.getLicenseExpiration(), ur.getRequestDate());
 			list.add(newBean);
 		}
 
@@ -34,8 +35,14 @@ public class VerifyRequestsController extends Subject implements Observer {
 
 	public UpgradeToDriverController getRequestController(int requestId) {
 		UpgradeRequest req = UpgradeRequestCatalog.getInstance().findRequest(requestId);
+		// TODO
+		/*
+		if (req == null)
+			throw new Exception();
+		 */
 		return req.getController();
 	}
+
 
 	// TODO staccati (quando il verifier fa log out)
 	public void onLogOut() {

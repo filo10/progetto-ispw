@@ -1,6 +1,11 @@
 package it.uniroma2.progettoispw.briscese.controller;
 
+import it.uniroma2.progettoispw.briscese.AppStateManager;
 import it.uniroma2.progettoispw.briscese.bean.RequestBean;
+import it.uniroma2.progettoispw.briscese.dao.UserDAO;
+import it.uniroma2.progettoispw.briscese.exceptions.CannotAddRoleException;
+import it.uniroma2.progettoispw.briscese.exceptions.UpgradeException;
+import it.uniroma2.progettoispw.briscese.exceptions.UserNotFoundException;
 import it.uniroma2.progettoispw.briscese.model.*;
 import it.uniroma2.progettoispw.briscese.model.roles.Driver;
 import it.uniroma2.progettoispw.briscese.model.roles.Verifier;
@@ -10,37 +15,63 @@ import java.time.LocalDate;
 
 public class UpgradeToDriverController extends Subject {
 
-
-	public UpgradeToDriverController() {
-
-	}
-
-	public void newRequest(RequestBean rbean) {
+	public RequestBean newRequest(RequestBean rbean) throws UpgradeException {
 		// create a new upgrade to driver request from a passanger
-		User requestant = UserCatalog.getInstance().findUser(rbean.getUserId());
-		License license = new License(rbean.getLicenseCode(), LocalDate.parse(rbean.getLicenseExpiration()));
-		UpgradeRequestCatalog.getInstance().newRequest(this, requestant, license);
+		try {
+			User requestant = UserCatalog.getInstance().findUser(rbean.getUserId());
+
+			if (!(requestant.hasRole("passenger") && !requestant.hasRole("driver")))
+				throw new UpgradeException("Cannot upgrade to Driver this user");
+
+			LocalDate licenseExpiration = LocalDate.parse(rbean.getLicenseExpiration());
+			UpgradeRequest request = UpgradeRequestCatalog.getInstance().newRequest(this, requestant, rbean.getLicenseCode(), licenseExpiration);
+			rbean.setStatus(0);
+			rbean.setRequestId(request.getRequestId());
+
+			return rbean;
+		} catch (UserNotFoundException e) {
+			// exception conversion
+			throw new UpgradeException("No User was found with the ID you used.");
+		}
 	}
 
-	public void closeRequest(RequestBean rbean) {
-		// "chiudi" la richiesta
-		UpgradeRequest request = UpgradeRequestCatalog.getInstance().findRequest(rbean.getRequestId());
-		Verifier verifier = (Verifier) UserCatalog.getInstance().findUser(rbean.getVerifierId()).getRoleInstance("verifier");
-		request.close(rbean.getOutcome(), verifier);
+	public void closeRequest(RequestBean rbean) throws UpgradeException {
+		try {
+			// "chiudi" la richiesta
+			UpgradeRequest request = UpgradeRequestCatalog.getInstance().findRequest(rbean.getRequestId());
+			Verifier verifier = (Verifier) UserCatalog.getInstance().findUser(rbean.getVerifierId()).getRoleInstance("verifier");
+			if (rbean.getStatus() == 0)
+				throw new UpgradeException("You are trying to close a request assigning it PENDING status...");
+			boolean outcome = rbean.getStatus() == 1;
+			request.close(outcome, verifier);
 
-		// se esito positivo
-		if (rbean.getOutcome()) {
-			try {
+			// se esito positivo
+			if (outcome) {
 				// aggiungi ruolo DRIVER e la patente all'utente
-				Driver newRole = new Driver(request.getLicense());
-				request.getRequestant().addRole(newRole); // lancia eccezione
-				request.getLicense().setOwner(newRole);
-			} catch (Exception e) { // TODO gestisci CannotAddRoleException
-				e.printStackTrace();
+				License license = request.getLicense();
+				Driver newRole = new Driver(license);
+				User nowDriverUser = request.getRequestant();
+				nowDriverUser.addRole(newRole);
+				license.setOwner(newRole);
+				UserDAO.getInstance().newDriver(nowDriverUser);
 			}
-		}
 
-		// notifica l'utente dell'esito della richiesta promozione
-		notifyObservers();
+			notifyObservers();
+
+		} catch (UserNotFoundException e1) {
+			throw new UpgradeException("No User was found with this ID: " + rbean.getRequestId());
+		} catch (CannotAddRoleException e2) {
+			throw new UpgradeException("The User whit ID=" + rbean.getRequestId() + " cannot be a Driver.");
+		}
+	}
+
+	public RequestBean getRequestStatus(RequestBean bean) {
+		UpgradeRequest request = UpgradeRequestCatalog.getInstance().findRequest(bean.getRequestId());
+		return new RequestBean(request.getRequestId(), request.getStatus());
+	}
+
+	public RequestBean getRequestInfo(RequestBean bean) {
+		UpgradeRequest request = UpgradeRequestCatalog.getInstance().findRequest(bean.getRequestId());
+		return new RequestBean(request.getRequestId(), request.getRequestant().getUserId(), request.getLicenseCode(), request.getLicenseExpiration(), request.getRequestDate());
 	}
 }

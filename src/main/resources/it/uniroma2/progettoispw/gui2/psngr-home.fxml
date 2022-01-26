@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane onMouseDragged="#onMouseDragged" onMousePressed="#onMousePressed" prefHeight="600.0" prefWidth="400.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniroma2.progettoispw.briscese.ui.gui2.PsngrHomeControllerUI">
+   <children>
+      <VBox alignment="TOP_CENTER" layoutX="150.0" layoutY="182.0" prefHeight="200.0" prefWidth="100.0" spacing="16.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <padding>
+            <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+         </padding>
+         <children>
+            <Label text="Ubergata" textFill="#2b9348">
+               <font>
+                  <Font name="System Bold" size="48.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="48.0" />
+               </VBox.margin>
+            </Label>
+            <Button mnemonicParsing="false" onAction="#onReserveButtonClick" prefHeight="50.0" prefWidth="240.0" text="Reserve a Ride" textAlignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#onMyReservationsButtonClick" prefHeight="50.0" prefWidth="240.0" text="My reservations" textAlignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#onUpgradeButtonClick" prefHeight="50.0" prefWidth="240.0" text="Upgrade to Driver" textAlignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#onLogoutButtonClick" style="-fx-background-color: red;" text="Log out" textAlignment="CENTER" textFill="WHITE">
+               <VBox.margin>
+                  <Insets top="32.0" />
+               </VBox.margin>
+            </Button>
+            <Label fx:id="label">
+               <VBox.margin>
+                  <Insets top="32.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

@@ -13,7 +13,7 @@ public class DummyUniversityDB {
 	}
 
 	public boolean isEnrolled(int enrollNumber) {
-		if (enrollNumber < 300000)
+		if (enrollNumber > 300000 || enrollNumber < 100000)
 			return false;
 		int count = 0;
 		for(; enrollNumber != 0; enrollNumber/=10, ++count);

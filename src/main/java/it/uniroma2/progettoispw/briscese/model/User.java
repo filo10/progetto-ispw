@@ -1,5 +1,6 @@
 package it.uniroma2.progettoispw.briscese.model;
 
+import it.uniroma2.progettoispw.briscese.exceptions.CannotAddRoleException;
 import it.uniroma2.progettoispw.briscese.model.roles.Passenger;
 import it.uniroma2.progettoispw.briscese.model.roles.UserRole;
 
@@ -10,16 +11,21 @@ public class User {
 	private int userId;
 	private String fullName;
 	private String password;
-	private List<UserRole> roles;
+	private List<UserRole> roles = new ArrayList<>();
 
 	public User(int userId, String fullName, String password, Passenger passenger) {
 		this.userId = userId;
 		this.fullName = fullName;
 		this.password = password;
-		this.roles = new ArrayList<>();
 		this.roles.add(passenger);
 	}
 
+	public User(int userId, String fullName, String password) {
+		this.userId = userId;
+		this.fullName = fullName;
+		this.password = password;
+
+	}
 
 	public boolean hasRole(String roleName) {
 		for (UserRole role : roles) {
@@ -37,16 +43,16 @@ public class User {
 		return null;
 	}
 
-	public void addRole(UserRole role) throws Exception {
+	public void addRole(UserRole role) throws CannotAddRoleException {
 		if (! canAddRole(role))
-			throw new Exception(); //CannotAddRoleException
+			throw new CannotAddRoleException(userId, role.toString());
 		roles.add(role);
 	}
 
 	private boolean canAddRole(UserRole value) {
 		if (roles.isEmpty())	// if User has no roles
 			return true;
-		else if (this.hasRole("passenger") && !this.hasRole("driver") ) {            // if User is only a Passenger
+		else if (this.hasRole("passenger") && !this.hasRole("driver") ) { // if User is only a Passenger
 			return value.hasType("driver");    // can be also a Driver
 		}
 		return false;
@@ -56,7 +62,15 @@ public class User {
 		return userId;
 	}
 
+	public String getFullName() {
+		return fullName;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
 	public boolean checkPassword(String hash) {
-		return this.password == hash;
+		return this.password.equals(hash);
 	}
 }

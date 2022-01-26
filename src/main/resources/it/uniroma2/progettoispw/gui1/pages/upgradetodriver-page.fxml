@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniroma2.progettoispw.briscese.ui.gui1.UpgradetodriverPageController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" text="Please remain in this page until the request is processed" textAlignment="CENTER" textFill="RED" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <padding>
+            <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+         </padding>
+      </Label>
+      <VBox layoutX="150.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0" spacing="8.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="32.0">
+         <children>
+            <Label text="License Code" />
+            <TextField fx:id="codeTextField" prefWidth="150.0" />
+            <Label text="License expiration" />
+            <TextField fx:id="expirationTextField" prefWidth="150.0" promptText="YYYY-MM-DD" />
+            <Button mnemonicParsing="false" onAction="#onRequestUpgradeButtonClick" text="Request Upgrade">
+               <VBox.margin>
+                  <Insets top="8.0" />
+               </VBox.margin></Button>
+            <Separator prefWidth="200.0" />
+            <Label text="Request Status:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="statusLabel" />
+         </children>
+         <padding>
+            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>

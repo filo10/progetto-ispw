@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane onMouseDragged="#onMouseDragged" onMousePressed="#onMousePressed" prefHeight="600.0" prefWidth="400.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniroma2.progettoispw.briscese.ui.gui2.PendingRequestsViewController">
+    <children>
+        <HBox alignment="CENTER_LEFT" layoutX="100.0" layoutY="14.0" prefHeight="50.0" prefWidth="200.0" spacing="16.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="8.0">
+            <children>
+                <Button mnemonicParsing="false" onAction="#onBackButtonClick" text="&lt; Back">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Button>
+                <Button mnemonicParsing="false" onAction="#onRefreshButtonClick" text="Refresh">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Button>
+            <Label fx:id="notificationLabel" style="-fx-background-color: yellow;" text="New request(s)" visible="false" />
+            </children></HBox>
+      <ListView fx:id="listView" layoutX="100.0" layoutY="189.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="64.0">
+         <padding>
+            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+         </padding>
+      </ListView>
+    </children>
+</AnchorPane>

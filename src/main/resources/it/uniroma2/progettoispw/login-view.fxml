@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" prefHeight="500.0" prefWidth="400.0" spacing="32.0" style="-fx-background-color: #2B9348;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniroma2.progettoispw.briscese.gui1.LoginViewController">
+<VBox alignment="CENTER" onMouseDragged="#onMouseDragged" onMousePressed="#onMousePressed" prefHeight="500.0" prefWidth="400.0" spacing="32.0" style="-fx-background-color: #2B9348; -fx-border-color: black;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniroma2.progettoispw.briscese.ui.LoginViewController">
    <children>
       <Label text="Ubergata" textAlignment="CENTER" textFill="WHITE">
          <font>
@@ -15,16 +15,26 @@
             <Insets bottom="32.0" />
          </VBox.margin>
       </Label>
+      <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" style="-fx-background-color: yellow;" textAlignment="CENTER" textFill="RED">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
       <TextField fx:id="usernameTextField" alignment="CENTER" maxWidth="-Infinity" prefWidth="200.0" promptText="matricola" />
       <PasswordField fx:id="passwordField" alignment="CENTER" maxWidth="-Infinity" prefWidth="200.0" promptText="password" />
       <HBox alignment="CENTER" prefWidth="200.0" spacing="16.0">
          <children>
-            <Button alignment="CENTER" defaultButton="true" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onLoginButtonClick" prefWidth="80.0" text="Log in" textAlignment="CENTER">
+            <Button alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onLoginButtonClick" prefWidth="130.0" text="Log in (GUI1)" textAlignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="80.0" text="Sign up" textAlignment="CENTER">
+            <Button alignment="CENTER" layoutX="98.0" layoutY="10.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onLoginGui2ButtonClick" prefWidth="130.0" text="Log in (GUI2)" textAlignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSignupButtonClick" prefWidth="130.0" text="Sign up" textAlignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
@@ -34,11 +44,12 @@
             <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
          </VBox.margin>
       </HBox>
-      <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" style="-fx-background-color: red;" textAlignment="CENTER" textFill="WHITE">
+      <Separator prefWidth="200.0" />
+      <Button mnemonicParsing="false" onAction="#onCloseButtonClick" style="-fx-background-color: red;" text="Close Application" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
-      </Label>
+      </Button>
    </children>
    <padding>
       <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />

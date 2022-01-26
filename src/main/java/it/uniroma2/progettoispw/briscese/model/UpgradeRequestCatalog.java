@@ -3,6 +3,7 @@ package it.uniroma2.progettoispw.briscese.model;
 import it.uniroma2.progettoispw.briscese.controller.UpgradeToDriverController;
 import it.uniroma2.progettoispw.briscese.observer_gof.Subject;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,8 +25,8 @@ public class UpgradeRequestCatalog extends Subject {
 		return instance;
 	}
 
-	public UpgradeRequest newRequest(UpgradeToDriverController controller, User requestant, License license) {
-		UpgradeRequest newRequest = new UpgradeRequest(controller, nextId, requestant, license);
+	public UpgradeRequest newRequest(UpgradeToDriverController controller, User requestant, String licenseCode, LocalDate licenseExpiration) {
+		UpgradeRequest newRequest = new UpgradeRequest(controller, nextId, requestant, licenseCode, licenseExpiration);
 		nextId++;
 		requests.add(newRequest);
 

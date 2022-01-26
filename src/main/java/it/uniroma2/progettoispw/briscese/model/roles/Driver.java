@@ -15,4 +15,7 @@ public class Driver implements UserRole {
 		return value.equalsIgnoreCase("driver");
 	}
 
+	public License getLicense() {
+		return license;
+	}
 }

@@ -1,5 +1,7 @@
 package it.uniroma2.progettoispw.briscese.bean;
 
+import it.uniroma2.progettoispw.briscese.model.UpgradeRequestStatus;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -9,21 +11,48 @@ public class RequestBean {
 	private String licenseCode;
 	private String licenseExpiration;
 	private String requestDate;
-	private boolean outcome;
+	private int status; // 0=pending, 1=approved, -1=rejected
 	private int verifierId;
 
 
-	public RequestBean(int requestId, int userId, String licenseCode, LocalDate licenseExpiration) {
+	public RequestBean(int userId, String licenseCode, String licenseExpiration) {
+		this.userId = userId;
+		this.licenseCode = licenseCode;
+		this.licenseExpiration = licenseExpiration;
+	}
+
+	public RequestBean(int requestId, int userId, String licenseCode, LocalDate licenseExpiration, LocalDate requestDate) {
 		this.requestId = requestId;
 		this.userId = userId;
 		this.licenseCode = licenseCode;
 
 		// Creating a custom formatter
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd 'at' hh:mm a");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		// converting date to string
-		String expirationString = licenseExpiration.format(formatter);
+		String expirationDateString = licenseExpiration.format(formatter);
+		String requestDateString = requestDate.format(formatter);
 
-		this.licenseExpiration = expirationString;
+		this.licenseExpiration = expirationDateString;
+		this.requestDate = requestDateString;
+	}
+
+	public RequestBean(int requestId, UpgradeRequestStatus status) {
+		this.requestId = requestId;
+		switch (status) {
+			case PENDING:
+				this.status = 0;
+				break;
+			case REJECTED:
+				this.status = -1;
+				break;
+			case APPROVED:
+				this.status = 1;
+				break;
+		}
+	}
+
+	public RequestBean(int requestId) {
+		this.requestId = requestId;
 	}
 
 	public int getUserId() {
@@ -38,8 +67,17 @@ public class RequestBean {
 		return licenseExpiration;
 	}
 
-	public boolean getOutcome() {
-		return outcome;
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		if (status < 0) // rejected
+			this.status = -1;
+		else if (status > 0) // approved
+			this.status = 1;
+		else
+			this.status = 0; // pending
 	}
 
 	public int getVerifierId() {
@@ -48,5 +86,17 @@ public class RequestBean {
 
 	public int getRequestId() {
 		return requestId;
+	}
+
+	public String getRequestDate() {
+		return requestDate;
+	}
+
+	public void setRequestId(int requestId) {
+		this.requestId = requestId;
+	}
+
+	public void setVerifierId(int verifierId) {
+		this.verifierId = verifierId;
 	}
 }

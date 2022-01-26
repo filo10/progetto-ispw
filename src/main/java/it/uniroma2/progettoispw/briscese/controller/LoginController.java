@@ -1,5 +1,9 @@
 package it.uniroma2.progettoispw.briscese.controller;
 
+import it.uniroma2.progettoispw.briscese.AppStateManager;
+import it.uniroma2.progettoispw.briscese.bean.LoginBean;
+import it.uniroma2.progettoispw.briscese.dao.UserDAO;
+import it.uniroma2.progettoispw.briscese.exceptions.*;
 import it.uniroma2.progettoispw.briscese.extservice.DummyUniversityDB;
 import it.uniroma2.progettoispw.briscese.model.User;
 import it.uniroma2.progettoispw.briscese.model.UserCatalog;
@@ -10,67 +14,92 @@ import java.security.NoSuchAlgorithmException;
 
 public class LoginController {
 
-	public String login(int userId, String password) throws Exception {
-		User user = UserCatalog.getInstance().findUser(userId);
-		if (user == null)
-			throw new Exception(); //user not found
-		String hash = hashPassword(password);
-		if (user.checkPassword(hash)) {
-			if (user.hasRole("driver"))
-				return "driver";
-			else if (user.hasRole("passenger"))
-				return "passenger";
-			else if (user.hasRole("verifier"))
-				return "verifier";
-			else if (user.hasRole("admin"))
-				return "admin";
+	public LoginBean login(LoginBean bean) throws MyLoginException {
+		try {
+			int userId = bean.getUserId();
+			String password = bean.getPassword();
+
+			User user = UserCatalog.getInstance().findUser(userId);
+
+			String hash = hashPassword(password);
+			String role = null;
+
+			if (user.checkPassword(hash)) {
+				if (user.hasRole("driver"))
+					role = "driver";
+				else if (user.hasRole("passenger"))
+					role = "passenger";
+				else if (user.hasRole("verifier"))
+					role = "verifier";
+				else if (user.hasRole("admin"))
+					role = "admin";
+				else
+					throw new NoRoleException(); //something weird with roles
+			} else {
+				throw new WrongPasswordException();
+			}
+			return new LoginBean(userId, user.getFullName(), role);
+
+		} catch (UserNotFoundException e) {
+			throw new MyLoginException("There is no User with ID=" + bean.getUserId());
+		} catch (NoSuchAlgorithmException e) {
+			throw new MyLoginException("There was an error encrypting the password... Please try again.\\nIf the error persists contact Client Service.\"");
+		} catch (NoRoleException e) {
+			throw new MyLoginException("The User has no role. Please contatct Client Service");
+		} catch (WrongPasswordException e) {
+			throw new MyLoginException("Wrong password, try again");
 		}
-		throw new Exception(); // wrong password or something weird with roles
 	}
 
-	public void signup(int userId, String fullName, String password) throws Exception {
+	public void signup(LoginBean bean) throws SignupException {
 		/* NOTE this method creates only users with passenger role! */
+		try {
+			int userId = bean.getUserId();
+			String fullName = bean.getFullName();
+			String password = bean.getPassword();
 
-		// controlla che userid non sia già usato da un user
-		if (UserCatalog.getInstance().findUser(userId) != null)
-			throw new Exception(); //UserAlreadyExistsException();
+			// controlla che userid non sia già usato da un user
+			if (UserCatalog.getInstance().userExists(userId))
+				throw new SignupException("There is already a User with id=" + userId);
 
-		// controlla che userid è una matricola valida
-		if (!DummyUniversityDB.getInstance().isEnrolled(userId))
-			throw new Exception(); //StudentDoesNotExistException
+			// controlla che userid è una matricola valida
+			if (!DummyUniversityDB.getInstance().isEnrolled(userId))
+				throw new StudentDoesNotExistException(userId);
 
-		// hash password
-		String hashedPassword = hashPassword(password);
+			// hash password
+			String hashedPassword = hashPassword(password);
 
-		// crea user
-		UserCatalog.getInstance().newUser(userId, fullName, hashedPassword, new Passenger());
+			// crea user
+			User newUser = UserCatalog.getInstance().newUser(userId, fullName, hashedPassword, new Passenger());
+			UserDAO.getInstance().newUser(newUser);
+
+		} catch (StudentDoesNotExistException e) {
+			throw new SignupException("No Student is enrolled with this ID: " + bean.getUserId());
+		} catch (NoSuchAlgorithmException e) {
+			throw new SignupException("There was an error encrypting the password... Please try again.\nIf the error persists contact Client Service.");
+		}
 	}
 
-	private String hashPassword(String passwordToHash) {
+	private String hashPassword(String passwordToHash) throws NoSuchAlgorithmException {
 		String generatedPassword = null;
 
-		try
-		{
-			// Create MessageDigest instance for MD5
-			MessageDigest md = MessageDigest.getInstance("MD5");
+		// Create MessageDigest instance for MD5
+		MessageDigest md = MessageDigest.getInstance("MD5");
 
-			// Add password bytes to digest
-			md.update(passwordToHash.getBytes());
+		// Add password bytes to digest
+		md.update(passwordToHash.getBytes());
 
-			// Get the hash's bytes
-			byte[] bytes = md.digest();
+		// Get the hash's bytes
+		byte[] bytes = md.digest();
 
-			// This bytes[] has bytes in decimal format. Convert it to hexadecimal format
-			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i < bytes.length; i++) {
-				sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-			}
-
-			// Get complete hashed password in hex format
-			generatedPassword = sb.toString();
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
+		// This bytes[] has bytes in decimal format. Convert it to hexadecimal format
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < bytes.length; i++) {
+			sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
 		}
+
+		// Get complete hashed password in hex format
+		generatedPassword = sb.toString();
 
 		return generatedPassword;
 	}
