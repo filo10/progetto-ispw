@@ -1,5 +1,6 @@
 package it.uniroma2.progettoispw.briscese.ui;
 
+import it.uniroma2.progettoispw.briscese.bean.NotificationBean;
 import javafx.scene.Node;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
@@ -9,6 +10,7 @@ import javafx.stage.Stage;
 
 public abstract class MyViewController {
 	protected SessionToken sessionToken;
+	protected NotificationBean notificationBean;
 	protected double xOffset = 0;
 	protected double yOffset = 0;
 
@@ -29,7 +31,7 @@ public abstract class MyViewController {
 		thisWindow.setY(event.getScreenY() - yOffset);
 	}
 
-	public void alertDialogMissingFXML() {
+	public void alertDialogFXMLError(String message) {
 		//Creating a dialog
 		Dialog<String> dialog = new Dialog<>();
 		//Adding buttons to the dialog pane
@@ -37,7 +39,15 @@ public abstract class MyViewController {
 		dialog.getDialogPane().getButtonTypes().add(type);
 
 		dialog.setTitle("CRITICAL ERROR");
-		dialog.setContentText("Cannot load user interface.\nPlease reinstall the application.");
+		dialog.setContentText("Cannot load user interface:\n"+message);
 		dialog.showAndWait();
+	}
+
+	public void newNotification(String text) {
+		// Do nothing. The sub-class can @Override this method to implement its desired behaviour.
+	}
+
+	protected void setNotificationBean(NotificationBean notificationBean) {
+		this.notificationBean = notificationBean;
 	}
 }

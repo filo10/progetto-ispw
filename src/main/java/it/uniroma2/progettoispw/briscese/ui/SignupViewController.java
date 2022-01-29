@@ -60,7 +60,7 @@ public class SignupViewController extends MyViewController{
 			window.setScene(newScene);
 			window.show();
 		} catch (IOException e) {
-			alertDialogMissingFXML();
+			alertDialogFXMLError(e.getMessage());
 		}
 	}
 

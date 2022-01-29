@@ -22,7 +22,7 @@ public class UserCatalog {
 			if (u.getUserId() == id)
 				return u;
 		}
-		throw new UserNotFoundException();
+		throw new UserNotFoundException(id);
 	}
 
 	public static synchronized UserCatalog getInstance() {

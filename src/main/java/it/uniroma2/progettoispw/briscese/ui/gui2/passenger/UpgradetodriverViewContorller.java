@@ -1,22 +1,19 @@
-package it.uniroma2.progettoispw.briscese.ui.gui2;
+package it.uniroma2.progettoispw.briscese.ui.gui2.passenger;
 
 import it.uniroma2.progettoispw.briscese.bean.RequestBean;
 import it.uniroma2.progettoispw.briscese.controller.UpgradeToDriverController;
 import it.uniroma2.progettoispw.briscese.exceptions.UpgradeException;
+import it.uniroma2.progettoispw.briscese.exceptions.UpgradeRequestNotFoundException;
 import it.uniroma2.progettoispw.briscese.observer_gof.Observer;
-import it.uniroma2.progettoispw.briscese.ui.MyViewController;
+import it.uniroma2.progettoispw.briscese.ui.gui2.MyMobileViewController;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
-import java.io.IOException;
-
-public class UpgradetodriverViewContorller extends MyViewController implements Observer {
+public class UpgradetodriverViewContorller extends MyMobileViewController implements Observer {
 	@FXML private TextField licensecodeTextField;
 	@FXML private DatePicker datePicker;
 	@FXML private Label statusLabel;
@@ -43,27 +40,20 @@ public class UpgradetodriverViewContorller extends MyViewController implements O
 		}
 	}
 
-	public void onBackButtonClick() {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("/it/uniroma2/progettoispw/gui2/psngr-home.fxml"));
-			Stage window = (Stage) statusLabel.getScene().getWindow();
-			Scene newScene = new Scene(loader.load());
-			window.setScene(newScene);
-
-			MyViewController controller = loader.getController();
-			controller.setSessionToken(sessionToken);
-
-			window.show();
-		} catch (IOException e) {
-			alertDialogMissingFXML();
-		}
+	public void onBackButtonClick(ActionEvent event) {
+		//nextView(event);
+		goToPreviusView(event);
 	}
 
 	@Override
 	public void update() {
-		RequestBean receivedBean = controller.getRequestStatus(new RequestBean(requestId));
-		setStatusLabel(receivedBean.getStatus());
+		RequestBean receivedBean = null;
+		try {
+			receivedBean = controller.getRequestStatus(new RequestBean(requestId));
+			setStatusLabel(receivedBean.getStatus());
+		} catch (UpgradeRequestNotFoundException e) {
+			statusLabel.setText("No upgrade request with requestId="+requestId);
+		}
 	}
 
 	private void setStatusLabel(int requestStatus) {

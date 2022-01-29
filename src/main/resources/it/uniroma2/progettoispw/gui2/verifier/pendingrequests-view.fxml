@@ -5,11 +5,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane onMouseDragged="#onMouseDragged" onMousePressed="#onMousePressed" prefHeight="600.0" prefWidth="400.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniroma2.progettoispw.briscese.ui.gui2.PendingRequestsViewController">
+<AnchorPane onMouseDragged="#onMouseDragged" onMousePressed="#onMousePressed" prefHeight="600.0" prefWidth="400.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniroma2.progettoispw.briscese.ui.gui2.verifier.PendingRequestsViewController">
     <children>
         <HBox alignment="CENTER_LEFT" layoutX="100.0" layoutY="14.0" prefHeight="50.0" prefWidth="200.0" spacing="16.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="8.0">
             <children>
-                <Button mnemonicParsing="false" onAction="#onBackButtonClick" text="&lt; Back">
+                <Button mnemonicParsing="false" onAction="#onBackButtonClick" text="&lt; Back" userData="/it/uniroma2/progettoispw/gui2/verifier/verifier-home.fxml">
                     <font>
                         <Font size="14.0" />
                     </font>

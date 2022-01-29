@@ -4,9 +4,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane onMouseDragged="#onMouseDragged" onMousePressed="#onMousePressed" prefHeight="600.0" prefWidth="400.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniroma2.progettoispw.briscese.ui.gui2.VerifyrequestViewController">
+<AnchorPane onMouseDragged="#onMouseDragged" onMousePressed="#onMousePressed" prefHeight="600.0" prefWidth="400.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniroma2.progettoispw.briscese.ui.gui2.verifier.VerifyrequestViewController">
    <children>
-      <Button layoutX="64.0" layoutY="70.0" mnemonicParsing="false" onAction="#onBackButtonClick" text="&lt; Back" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="8.0">
+      <Button layoutX="64.0" layoutY="70.0" mnemonicParsing="false" onAction="#onBackButtonClick" text="&lt; Back" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="8.0" userData="/it/uniroma2/progettoispw/gui2/verifier/verifier-home.fxml">
          <font>
             <Font size="14.0" />
          </font>
@@ -35,12 +35,12 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="32.0">
                <children>
-                  <Button fx:id="approveButton" mnemonicParsing="false" onAction="#onDecisionButtonClick" prefWidth="160.0" style="-fx-background-color: lightgreen;" text="Approve">
+                  <Button fx:id="approveButton" disable="true" mnemonicParsing="false" onAction="#onDecisionButtonClick" prefWidth="160.0" style="-fx-background-color: lightgreen;" text="Approve">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="rejectButton" mnemonicParsing="false" onAction="#onDecisionButtonClick" prefWidth="160.0" style="-fx-background-color: red;" text="Reject">
+                  <Button fx:id="rejectButton" disable="true" mnemonicParsing="false" onAction="#onDecisionButtonClick" prefWidth="160.0" style="-fx-background-color: red;" text="Reject">
                      <font>
                         <Font size="18.0" />
                      </font>

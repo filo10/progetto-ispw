@@ -1,6 +1,7 @@
 package it.uniroma2.progettoispw.briscese.controller;
 
 import it.uniroma2.progettoispw.briscese.bean.RequestBean;
+import it.uniroma2.progettoispw.briscese.exceptions.UpgradeRequestNotFoundException;
 import it.uniroma2.progettoispw.briscese.model.UpgradeRequest;
 import it.uniroma2.progettoispw.briscese.model.UpgradeRequestCatalog;
 import it.uniroma2.progettoispw.briscese.observer_gof.Observer;
@@ -33,18 +34,11 @@ public class VerifyRequestsController extends Subject implements Observer {
 		return list;
 	}
 
-	public UpgradeToDriverController getRequestController(int requestId) {
+	public UpgradeToDriverController getRequestController(int requestId) throws UpgradeRequestNotFoundException {
 		UpgradeRequest req = UpgradeRequestCatalog.getInstance().findRequest(requestId);
-		// TODO
-		/*
-		if (req == null)
-			throw new Exception();
-		 */
 		return req.getController();
 	}
 
-
-	// TODO staccati (quando il verifier fa log out)
 	public void onLogOut() {
 		UpgradeRequestCatalog.getInstance().detach(this);
 	}

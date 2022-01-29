@@ -23,6 +23,7 @@ public class UserDAO {
 
 	private List<User> newUsers;
 	private List<User> newDrivers;
+	private static final String DRIVER = "driver";
 
 
 	private UserDAO() {
@@ -50,12 +51,11 @@ public class UserDAO {
 
 			// assign roles
 			switch (rs.getString("type")) {
-				case "driver":
+				case DRIVER:
 					user.addRole(new Passenger());
 					License license = retrieveLicense(userId);
 					Driver driver = new Driver(license);
 					user.addRole(driver);
-					license.setOwner(driver);
 					break;
 				case "passenger":
 					user.addRole(new Passenger());
@@ -93,10 +93,10 @@ public class UserDAO {
 		for (User newDriver : newDrivers) {
 			int userId = newDriver.getUserId();
 			String updateStatement = String.format("UPDATE users SET type='%s' WHERE enroll_number = %s",
-					"driver", userId);
+					DRIVER, userId);
 			stmt.executeUpdate(updateStatement);
 
-			Driver role = (Driver) newDriver.getRoleInstance("driver");
+			Driver role = (Driver) newDriver.getRoleInstance(DRIVER);
 			License license = role.getLicense();
 			String expiration = license.getExpiration().toString();
 			String insertStatement = String.format("INSERT INTO license (code, expiration, owner) VALUES ('%s','%s',%s)",
@@ -107,7 +107,7 @@ public class UserDAO {
 		stmt.close();
 	}
 
-	private static License retrieveLicense(int userID) throws DBConnectionException, SQLException, CannotAddRoleException {
+	private License retrieveLicense(int userID) throws DBConnectionException, SQLException, CannotAddRoleException {
 		Statement stmt = DBConnectionManager.getInstance().getScrollableStatement();
 
 		String sql = "SELECT * FROM license WHERE owner = " + userID + ";";

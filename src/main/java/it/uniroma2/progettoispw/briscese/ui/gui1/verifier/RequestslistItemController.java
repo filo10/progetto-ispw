@@ -1,9 +1,10 @@
-package it.uniroma2.progettoispw.briscese.ui.gui1;
+package it.uniroma2.progettoispw.briscese.ui.gui1.verifier;
 
 import it.uniroma2.progettoispw.briscese.bean.RequestBean;
 import it.uniroma2.progettoispw.briscese.controller.UpgradeToDriverController;
 import it.uniroma2.progettoispw.briscese.controller.VerifyRequestsController;
 import it.uniroma2.progettoispw.briscese.exceptions.UpgradeException;
+import it.uniroma2.progettoispw.briscese.exceptions.UpgradeRequestNotFoundException;
 import it.uniroma2.progettoispw.briscese.ui.SessionToken;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -48,7 +49,7 @@ public class RequestslistItemController {
 		//Adding items to the list
 		list.add(approve);
 		list.add(rejet);
-
+		// show dialog
 		Optional<String> result = choiceDialog.showAndWait();
 		String selected = rejet;
 		if (result.isPresent()) {
@@ -57,9 +58,9 @@ public class RequestslistItemController {
 
 		//prendi il controller della richiesta e "chiudila"
 		VerifyRequestsController c = new VerifyRequestsController();
-		UpgradeToDriverController sharedWithPassengerController= c.getRequestController(bean.getRequestId());
 
 		try {
+			UpgradeToDriverController sharedWithPassengerController= c.getRequestController(bean.getRequestId());
 
 			switch (selected) {
 				case "Approve":
@@ -76,7 +77,7 @@ public class RequestslistItemController {
 			sharedWithPassengerController.closeRequest(bean);
 			caller.onRefreshButtonClick();
 
-		} catch (UpgradeException e) {
+		} catch (UpgradeException | UpgradeRequestNotFoundException e) {
 			//Creating a dialog
 			Dialog<String> dialog = new Dialog<>();
 			//Adding buttons to the dialog pane

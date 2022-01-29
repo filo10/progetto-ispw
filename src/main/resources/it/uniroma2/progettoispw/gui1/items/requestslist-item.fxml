@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="100.0" prefWidth="550.0" style="-fx-border-color: grey;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniroma2.progettoispw.briscese.ui.gui1.RequestslistItemController">
+<AnchorPane prefHeight="100.0" prefWidth="550.0" style="-fx-border-color: grey;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniroma2.progettoispw.briscese.ui.gui1.verifier.RequestslistItemController">
    <children>
       <GridPane alignment="CENTER" layoutX="29.0" layoutY="-20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>

@@ -1,8 +1,9 @@
-package it.uniroma2.progettoispw.briscese.ui.gui1;
+package it.uniroma2.progettoispw.briscese.ui.gui1.verifier;
 
 import it.uniroma2.progettoispw.briscese.bean.RequestBean;
 import it.uniroma2.progettoispw.briscese.controller.VerifyRequestsController;
 import it.uniroma2.progettoispw.briscese.observer_gof.Observer;
+import it.uniroma2.progettoispw.briscese.ui.gui1.HomeViewController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -46,7 +47,7 @@ public class VerifierHomeViewController extends HomeViewController implements Ob
 			}
 			notificationLabel.setVisible(false);
 		} catch (IOException e) {
-			alertDialogMissingFXML();
+			alertDialogFXMLError(e.getMessage());
 		}
 	}
 
@@ -68,6 +69,7 @@ public class VerifierHomeViewController extends HomeViewController implements Ob
 	@Override
 	public void logout() {
 		Stage thisWindow = (Stage) nameLabel.getScene().getWindow();
+		logicController.detach(this);
 		thisWindow.close();
 	}
 }

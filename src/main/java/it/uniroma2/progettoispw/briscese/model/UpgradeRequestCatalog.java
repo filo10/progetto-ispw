@@ -1,6 +1,8 @@
 package it.uniroma2.progettoispw.briscese.model;
 
 import it.uniroma2.progettoispw.briscese.controller.UpgradeToDriverController;
+import it.uniroma2.progettoispw.briscese.dao.UpgradeRequestDAO;
+import it.uniroma2.progettoispw.briscese.exceptions.UpgradeRequestNotFoundException;
 import it.uniroma2.progettoispw.briscese.observer_gof.Subject;
 
 import java.time.LocalDate;
@@ -15,7 +17,6 @@ public class UpgradeRequestCatalog extends Subject {
 
 
 	protected UpgradeRequestCatalog() {
-		this.nextId = 1; // TODO setta il valore giusto da db
 		this.requests = new ArrayList<>();
 	}
 
@@ -29,6 +30,7 @@ public class UpgradeRequestCatalog extends Subject {
 		UpgradeRequest newRequest = new UpgradeRequest(controller, nextId, requestant, licenseCode, licenseExpiration);
 		nextId++;
 		requests.add(newRequest);
+		UpgradeRequestDAO.getInstance().newRequest(newRequest);
 
 		notifyObservers();
 
@@ -46,11 +48,19 @@ public class UpgradeRequestCatalog extends Subject {
 		return returnList;
 	}
 
-	public UpgradeRequest findRequest(int id) {
+	public UpgradeRequest findRequest(int id) throws UpgradeRequestNotFoundException {
 		for (UpgradeRequest req : requests) {
 			if (req.getRequestId() == id)
 				return req;
 		}
-		return null; // TODO oppure lancia eccezione?
+		throw new UpgradeRequestNotFoundException(id);
+	}
+
+	public void setRequests(List<UpgradeRequest> requests) {
+		this.requests = requests;
+	}
+
+	public void setNextId(int nextId) {
+		this.nextId = nextId;
 	}
 }

@@ -1,10 +1,12 @@
-package it.uniroma2.progettoispw.briscese.ui.gui1;
+package it.uniroma2.progettoispw.briscese.ui.gui1.passenger;
 
 import it.uniroma2.progettoispw.briscese.bean.RequestBean;
 import it.uniroma2.progettoispw.briscese.controller.UpgradeToDriverController;
 import it.uniroma2.progettoispw.briscese.exceptions.UpgradeException;
+import it.uniroma2.progettoispw.briscese.exceptions.UpgradeRequestNotFoundException;
 import it.uniroma2.progettoispw.briscese.observer_gof.Observer;
 import it.uniroma2.progettoispw.briscese.ui.SessionToken;
+import it.uniroma2.progettoispw.briscese.ui.gui1.PageController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -49,22 +51,27 @@ public class UpgradetodriverPageController implements Observer, PageController {
 
 	@Override
 	public void update() {
-		RequestBean bean = logicController.getRequestStatus(new RequestBean(requestId));
-		String status = null;
-		switch (bean.getStatus()) {
-			case 0:
-				status = "Pending...";
-				break;
-			case -1:
-				status = "Rejected.";
-				break;
-			case 1:
-				status = "Approved! Log out and log in again to use your Driver account";
-				break;
-			default:
-				status = "Something went wrong, please contact Verifier.";
+		RequestBean bean = null;
+		try {
+			bean = logicController.getRequestStatus(new RequestBean(requestId));
+			String status = null;
+			switch (bean.getStatus()) {
+				case 0:
+					status = "Pending...";
+					break;
+				case -1:
+					status = "Rejected.";
+					break;
+				case 1:
+					status = "Approved! Log out and log in again to use your Driver account";
+					break;
+				default:
+					status = "Something went wrong, please contact Verifier.";
+			}
+			statusLabel.setText(status);
+		} catch (UpgradeRequestNotFoundException e) {
+			statusLabel.setText("No upgrade request found for requestID="+requestId);
 		}
-		statusLabel.setText(status);
 	}
 
 	@Override

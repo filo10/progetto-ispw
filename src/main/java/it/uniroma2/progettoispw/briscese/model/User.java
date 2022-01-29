@@ -1,5 +1,6 @@
 package it.uniroma2.progettoispw.briscese.model;
 
+import it.uniroma2.progettoispw.briscese.bean.NotificationBean;
 import it.uniroma2.progettoispw.briscese.exceptions.CannotAddRoleException;
 import it.uniroma2.progettoispw.briscese.model.roles.Passenger;
 import it.uniroma2.progettoispw.briscese.model.roles.UserRole;
@@ -12,6 +13,7 @@ public class User {
 	private String fullName;
 	private String password;
 	private List<UserRole> roles = new ArrayList<>();
+	private List<String> notificationBacklog = new ArrayList<>();
 
 	public User(int userId, String fullName, String password, Passenger passenger) {
 		this.userId = userId;
@@ -73,4 +75,32 @@ public class User {
 	public boolean checkPassword(String hash) {
 		return this.password.equals(hash);
 	}
+
+// publisher ___________________________________________________________________________________________________________
+	// per inoltrare notifiche alle view registrate qui, attraverso un bean
+
+	private List<NotificationBean> subscribers = new ArrayList<>();
+
+	public void subscribe(NotificationBean bean) {
+		subscribers.add(bean);
+		for (String notification : notificationBacklog)
+			publishNotification(notification);
+	}
+
+	public void unsubscribe(NotificationBean bean) {
+		subscribers.remove(bean);
+	}
+
+	public void publishNotification(String message) {
+		/* remember notification if user is not online */
+		if (subscribers.isEmpty()) {
+			notificationBacklog.add(message);
+			return;
+		}
+
+		for (NotificationBean bean : subscribers)
+			bean.alert(message);
+	}
+//______________________________________________________________________________________________________________________
+
 }

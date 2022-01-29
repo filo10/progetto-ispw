@@ -1,7 +1,7 @@
 package it.uniroma2.progettoispw.briscese.controller;
 
-import it.uniroma2.progettoispw.briscese.AppStateManager;
 import it.uniroma2.progettoispw.briscese.bean.LoginBean;
+import it.uniroma2.progettoispw.briscese.bean.NotificationBean;
 import it.uniroma2.progettoispw.briscese.dao.UserDAO;
 import it.uniroma2.progettoispw.briscese.exceptions.*;
 import it.uniroma2.progettoispw.briscese.extservice.DummyUniversityDB;
@@ -14,7 +14,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class LoginController {
 
-	public LoginBean login(LoginBean bean) throws MyLoginException {
+	public LoginBean login(LoginBean bean, NotificationBean notificationBean) throws MyLoginException {
 		try {
 			int userId = bean.getUserId();
 			String password = bean.getPassword();
@@ -34,17 +34,19 @@ public class LoginController {
 				else if (user.hasRole("admin"))
 					role = "admin";
 				else
-					throw new NoRoleException(); //something weird with roles
+					throw new RoleException("there is a user with no roles!"); //something weird with roles
 			} else {
 				throw new WrongPasswordException();
 			}
+
+			user.subscribe(notificationBean);
 			return new LoginBean(userId, user.getFullName(), role);
 
 		} catch (UserNotFoundException e) {
 			throw new MyLoginException("There is no User with ID=" + bean.getUserId());
 		} catch (NoSuchAlgorithmException e) {
 			throw new MyLoginException("There was an error encrypting the password... Please try again.\\nIf the error persists contact Client Service.\"");
-		} catch (NoRoleException e) {
+		} catch (RoleException e) {
 			throw new MyLoginException("The User has no role. Please contatct Client Service");
 		} catch (WrongPasswordException e) {
 			throw new MyLoginException("Wrong password, try again");

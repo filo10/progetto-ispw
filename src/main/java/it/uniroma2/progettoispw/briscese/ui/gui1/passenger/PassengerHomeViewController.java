@@ -1,5 +1,7 @@
-package it.uniroma2.progettoispw.briscese.ui.gui1;
+package it.uniroma2.progettoispw.briscese.ui.gui1.passenger;
 
+import it.uniroma2.progettoispw.briscese.ui.gui1.HomeViewController;
+import it.uniroma2.progettoispw.briscese.ui.gui1.PageController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -62,7 +64,7 @@ public class PassengerHomeViewController extends HomeViewController {
 			borderPane.setCenter(loader.load());
 			pageController = loader.getController();
 		} catch (IOException e) {
-			alertDialogMissingFXML();
+			alertDialogFXMLError(e.getMessage());
 		}
 		return pageController;
 	}
