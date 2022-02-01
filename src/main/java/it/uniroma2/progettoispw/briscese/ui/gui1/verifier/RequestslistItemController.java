@@ -1,6 +1,6 @@
 package it.uniroma2.progettoispw.briscese.ui.gui1.verifier;
 
-import it.uniroma2.progettoispw.briscese.bean.RequestBean;
+import it.uniroma2.progettoispw.briscese.bean.UpgradeRequestBean;
 import it.uniroma2.progettoispw.briscese.controller.UpgradeToDriverController;
 import it.uniroma2.progettoispw.briscese.controller.VerifyRequestsController;
 import it.uniroma2.progettoispw.briscese.exceptions.UpgradeException;
@@ -13,7 +13,7 @@ import javafx.scene.control.*;
 import java.util.Optional;
 
 public class RequestslistItemController {
-	private RequestBean bean;
+	private UpgradeRequestBean bean;
 	private SessionToken token;
 	private VerifierHomeViewController caller;
 
@@ -22,7 +22,7 @@ public class RequestslistItemController {
 	@FXML private Label licenseexpirationLabel;
 	@FXML private Label requestidLabel;
 
-	public void setUserModel(RequestBean bean) {
+	public void setUserModel(UpgradeRequestBean bean) {
 		this.bean = bean;
 	}
 

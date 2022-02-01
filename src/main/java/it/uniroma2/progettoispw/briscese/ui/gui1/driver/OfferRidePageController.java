@@ -3,7 +3,6 @@ package it.uniroma2.progettoispw.briscese.ui.gui1.driver;
 import it.uniroma2.progettoispw.briscese.bean.RideBean;
 import it.uniroma2.progettoispw.briscese.controller.ManageRideController;
 import it.uniroma2.progettoispw.briscese.exceptions.ManageRideException;
-import it.uniroma2.progettoispw.briscese.ui.SessionToken;
 import it.uniroma2.progettoispw.briscese.ui.gui1.PageController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,9 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
-public class OfferRidePageController implements PageController {
-	private SessionToken token;
-	private ManageRideController logicController;
+public class OfferRidePageController extends PageController {
 	@FXML private TextField seatsTextField;
 	@FXML private TextField dateTextField;
 	@FXML private TextField timeTextField;
@@ -24,17 +21,12 @@ public class OfferRidePageController implements PageController {
 	@FXML private TextField finishTextField;
 	@FXML private Label label;
 	@FXML private Button offerButton;
-	// TODO salvarsi controller precendente che è un observer?
 
-	@Override
-	public void shareSessionToken(SessionToken token) {
-		this.token = token;
-	}
 
 	public void onOfferButtonClick() {
 		try {
 			// controlla che il num posti sia un int tra 1 e 8.
-			Integer numberOfSeats = Integer.parseInt(seatsTextField.getText());
+			int numberOfSeats = Integer.parseInt(seatsTextField.getText());
 			if (!(numberOfSeats > 0 && numberOfSeats < 9)) {
 				label.setText("Number of seats must be between 1 and 8.");
 				return;
@@ -57,14 +49,14 @@ public class OfferRidePageController implements PageController {
 
 			// offri corsa
 			RideBean bean = new RideBean();
-			bean.setDriverId(token.getUserId());
+			bean.setDriverId(sessionToken.getUserId());
 			bean.setNumberOfSeats(numberOfSeats);
 			bean.setDate(dateTextField.getText());
 			bean.setTime(timeTextField.getText());
 			bean.setStartPoint(startTextField.getText());
 			bean.setFinishPoint(finishTextField.getText());
 
-			logicController = new ManageRideController();
+			ManageRideController logicController = new ManageRideController();
 			logicController.offerRide(bean);
 			label.setText("Success!");
 			offerButton.setDisable(true);

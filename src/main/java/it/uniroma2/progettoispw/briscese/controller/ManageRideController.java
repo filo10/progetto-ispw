@@ -1,15 +1,19 @@
 package it.uniroma2.progettoispw.briscese.controller;
 
 import it.uniroma2.progettoispw.briscese.bean.RideBean;
-import it.uniroma2.progettoispw.briscese.exceptions.ManageRideException;
-import it.uniroma2.progettoispw.briscese.exceptions.RoleException;
-import it.uniroma2.progettoispw.briscese.exceptions.UserNotFoundException;
+import it.uniroma2.progettoispw.briscese.bean.SeatReplyBean;
+import it.uniroma2.progettoispw.briscese.bean.SeatRequestBean;
+import it.uniroma2.progettoispw.briscese.exceptions.*;
+import it.uniroma2.progettoispw.briscese.model.Ride;
 import it.uniroma2.progettoispw.briscese.model.RideCatalog;
 import it.uniroma2.progettoispw.briscese.model.User;
 import it.uniroma2.progettoispw.briscese.model.UserCatalog;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 public class ManageRideController {
 
@@ -30,12 +34,78 @@ public class ManageRideController {
 		}
 	}
 
-	/* TODO
-	elimina corsa :
-		// chiedi al catalogo? elimina corsa
-		// notifica passeggeri della corsa
-		// notifica richieste di passaggio
-	--
-	 */
+	public List<RideBean> getMyRides(RideBean bean) {
+		int driverId = bean.getDriverId();
+
+		List<RideBean> driverRides = new ArrayList<>();
+		List<Ride> myRides = new ArrayList<>();
+
+		for (Ride ride : RideCatalog.getInstance().getRides()) {
+			if (ride.getDriver().getUserId() == driverId) {
+				myRides.add(ride);
+			}
+		}
+
+		// sort rides by date
+		myRides.sort(Comparator.comparing(Ride::getDate));
+		for (Ride ride : myRides)
+			driverRides.add(new RideBean(ride, null));
+
+		return driverRides;
+	}
+
+	public RideBean getRide(RideBean bean) throws RideNotFoundException {
+		Ride ride = RideCatalog.getInstance().findRide(bean.getRideId());
+		return new RideBean(ride, null);
+	}
+
+	public List<SeatRequestBean> getRideSeatRequests(RideBean bean) throws RideNotFoundException {
+		int rideId = bean.getRideId();
+		Ride ride = RideCatalog.getInstance().findRide(rideId);
+		List<SeatRequestBean> list = new ArrayList<>();
+
+		for (User requestant : ride.getRequestList())
+			list.add(new SeatRequestBean(rideId, requestant.getUserId(), requestant.getFullName()));
+
+		return list;
+	}
+
+	public List<SeatRequestBean> getRidePassengers(RideBean bean) throws RideNotFoundException {
+		int rideId = bean.getRideId();
+		Ride ride = RideCatalog.getInstance().findRide(rideId);
+		List<SeatRequestBean> list = new ArrayList<>();
+
+		for (User passenger : ride.getPassengerList())
+			list.add(new SeatRequestBean(rideId, passenger.getUserId(), passenger.getFullName()));
+
+		return list;
+	}
+
+	public void replySeatRequest(SeatReplyBean bean) throws RideManagementException {
+		try {
+			Ride ride = RideCatalog.getInstance().findRide(bean.getRideId());
+			ride.replyRequest(UserCatalog.getInstance().findUser(bean.getPassengerId()), bean.getReply());
+		} catch (RideNotFoundException | UserNotFoundException | SeatRequestException e) {
+			throw new RideManagementException(e.getMessage());
+		}
+	}
+
+	public void removePassenger(SeatReplyBean bean) throws RideManagementException {
+		try {
+			Ride ride = RideCatalog.getInstance().findRide(bean.getRideId());
+			ride.removePassenger(UserCatalog.getInstance().findUser(bean.getPassengerId()));
+		} catch (RideNotFoundException | UserNotFoundException | SeatRequestException e) {
+			throw new RideManagementException(e.getMessage());
+		}
+	}
+
+	public void deleteRide(RideBean bean) throws RideManagementException { //TODO delete ride ... farlo direttamente nelle RideView????????
+		try {
+			Ride ride = RideCatalog.getInstance().findRide(bean.getRideId());
+			ride.deleteRide();
+		} catch (RideNotFoundException e) {
+			throw new RideManagementException(e.getMessage());
+		}
+	}
 
 }

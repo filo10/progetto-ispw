@@ -1,11 +1,10 @@
 package it.uniroma2.progettoispw.briscese.ui.gui1.passenger;
 
-import it.uniroma2.progettoispw.briscese.bean.RequestBean;
+import it.uniroma2.progettoispw.briscese.bean.UpgradeRequestBean;
 import it.uniroma2.progettoispw.briscese.controller.UpgradeToDriverController;
 import it.uniroma2.progettoispw.briscese.exceptions.UpgradeException;
 import it.uniroma2.progettoispw.briscese.exceptions.UpgradeRequestNotFoundException;
 import it.uniroma2.progettoispw.briscese.observer_gof.Observer;
-import it.uniroma2.progettoispw.briscese.ui.SessionToken;
 import it.uniroma2.progettoispw.briscese.ui.gui1.PageController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -14,9 +13,8 @@ import javafx.scene.control.TextField;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-public class UpgradetodriverPageController implements Observer, PageController {
+public class UpgradetodriverPageController extends PageController implements Observer {
 	private UpgradeToDriverController logicController;
-	private SessionToken token;
 	private int requestId;
 
 	@FXML private TextField codeTextField;
@@ -30,8 +28,8 @@ public class UpgradetodriverPageController implements Observer, PageController {
 			if (!checkExpirationTextFieldIsCorrect(expirationTextField.getText()))
 				throw new UpgradeException("Date must be valid and in YYYY-MM-DD format.");
 
-			RequestBean bean = new RequestBean(token.getUserId(), codeTextField.getText(), expirationTextField.getText());
-			RequestBean receivedBean = logicController.newRequest(bean);
+			UpgradeRequestBean bean = new UpgradeRequestBean(sessionToken.getUserId(), codeTextField.getText(), expirationTextField.getText());
+			UpgradeRequestBean receivedBean = logicController.newRequest(bean);
 			logicController.attach(this);
 			requestId = receivedBean.getRequestId();
 			statusLabel.setText("Pending...");
@@ -51,9 +49,9 @@ public class UpgradetodriverPageController implements Observer, PageController {
 
 	@Override
 	public void update() {
-		RequestBean bean = null;
+		UpgradeRequestBean bean = null;
 		try {
-			bean = logicController.getRequestStatus(new RequestBean(requestId));
+			bean = logicController.getRequestStatus(new UpgradeRequestBean(requestId));
 			String status = null;
 			switch (bean.getStatus()) {
 				case 0:
@@ -72,11 +70,6 @@ public class UpgradetodriverPageController implements Observer, PageController {
 		} catch (UpgradeRequestNotFoundException e) {
 			statusLabel.setText("No upgrade request found for requestID="+requestId);
 		}
-	}
-
-	@Override
-	public void shareSessionToken(SessionToken token) {
-		this.token = token;
 	}
 
 }

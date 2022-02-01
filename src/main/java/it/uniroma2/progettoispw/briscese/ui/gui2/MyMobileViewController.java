@@ -27,11 +27,11 @@ public abstract class MyMobileViewController extends MyViewController {
 
 			window.show();
 		} catch (IOException | IllegalStateException e) {
-			alertDialogFXMLError(e.getMessage());
+			alertDialogFXMLError(e.getCause().toString() + "\n" + e.getMessage());
 		}
 	}
 
-	protected void nextViewAndRememberThisScene(ActionEvent event) {
+	protected MyMobileViewController nextViewAndRememberThisScene(ActionEvent event) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			Button pressedButton = (Button) event.getSource();
@@ -49,9 +49,36 @@ public abstract class MyMobileViewController extends MyViewController {
 			controller.setPreviousScene(thisScene);
 
 			window.show();
+			return controller;
+
 		} catch (IOException | IllegalStateException e) {
-			alertDialogFXMLError(e.getMessage());
+			alertDialogFXMLError("something went wrong...\n\n" + e.getMessage());
+			e.printStackTrace();
 		}
+		return null;
+	}
+
+	protected MyMobileViewController nextViewAndRememberThisScene(String resourceName, Scene scene) {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+
+			loader.setLocation(getClass().getResource(resourceName));
+
+			Stage window = (Stage) scene.getWindow();
+			Scene newScene = new Scene(loader.load());
+			window.setScene(newScene);
+
+			MyMobileViewController controller = loader.getController();
+			controller.setSessionToken(sessionToken);
+			controller.setPreviousScene(scene);
+
+			window.show();
+			return controller;
+
+		} catch (IOException | IllegalStateException e) {
+			alertDialogFXMLError(e.getCause().toString() + "\n" + e.getMessage());
+		}
+		return null;
 	}
 
 	protected void setPreviousScene(Scene scene) {
@@ -79,5 +106,6 @@ public abstract class MyMobileViewController extends MyViewController {
 		Button pressedButton = (Button) event.getSource();
 		Stage window = (Stage) pressedButton.getScene().getWindow();
 		window.close();
+		askControllerToLogout();
 	}
 }

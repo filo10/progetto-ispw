@@ -1,6 +1,7 @@
 package it.uniroma2.progettoispw.briscese.model;
 
 import it.uniroma2.progettoispw.briscese.exceptions.RoleException;
+import it.uniroma2.progettoispw.briscese.exceptions.SeatRequestException;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -37,19 +38,30 @@ public class Ride {
 		this.requestList = new ArrayList<>();
 	}
 
-	public void requestSeat(User passenger) {
+	public void requestSeat(User passenger) throws SeatRequestException {
 		if (!passenger.hasRole("passenger"))
-			return;
+			throw new SeatRequestException("You must be a passenger to request a seat.");
+		if (date.isBefore(LocalDate.now()))
+			throw new SeatRequestException("You can't send a request for a ride in the past.");
+		if (passenger.getUserId() == driver.getUserId())
+			throw new SeatRequestException("You can't send a request for your rides!");
 		if (passengerList.size() < numberOfSeats) {
+			if (requestList.contains(passenger))
+				throw new SeatRequestException("You already send a request for this ride.");
+			if (passengerList.contains(passenger))
+				throw new SeatRequestException("You are already a passenger for this ride.");
 			requestList.add(passenger);
 			driver.publishNotification("New seat request for " + this);
+		} else {
+			throw new SeatRequestException("Cannot send request: the ride is full.");
 		}
 	}
 
-	public void replyRequest(User passenger, boolean answer) {
+	public void replyRequest(User passenger, boolean answer) throws SeatRequestException {
+		if (date.isBefore(LocalDate.now()))
+			throw new SeatRequestException("You can't reply a request for a ride in the past.");
 		if (!requestList.contains(passenger))
-			return;
-
+			throw new SeatRequestException("This user has not requested a seat for this ride.");
 		if (answer) {
 			requestList.remove(passenger);
 			passengerList.add(passenger);
@@ -60,12 +72,16 @@ public class Ride {
 		}
 	}
 
-	public void removePassenger(User passenger) {
+	public void removePassenger(User passenger) throws SeatRequestException {
+		if (date.isBefore(LocalDate.now()))
+			throw new SeatRequestException("You can't remove passengers from a ride in the past.");
 		if (passengerList.remove(passenger))
 			passenger.publishNotification("You've been removed from " + this);
 	}
 
-	public void leaveRide(User passenger) {
+	public void leaveRide(User passenger) throws SeatRequestException {
+		if (date.isBefore(LocalDate.now()))
+			throw new SeatRequestException("You can't leave a ride in the past.");
 		if (passengerList.remove(passenger))
 			driver.publishNotification("A passenger left this ride:%n" + this);
 	}
@@ -79,8 +95,51 @@ public class Ride {
 
 	@Override
 	public String toString() {
-		return String.format("Ride #%d [on %s %s]%nto: %s, from: %s",
+		return String.format("Ride #%d [on %s, %s]%nto: %s, from: %s",
 				rideId, date.toString(), time.toString(), finishPoint, startPoint);
 	}
 
+	public LocalDate getDate() {
+		return date;
+	}
+
+	public boolean isAvailable() {
+		return passengerList.size() < numberOfSeats;
+	}
+
+	public int getRideId() {
+		return rideId;
+	}
+
+	public User getDriver() {
+		return driver;
+	}
+
+	public int getNumberOfSeats() {
+		return numberOfSeats;
+	}
+
+	public String getStartPoint() {
+		return startPoint;
+	}
+
+	public String getFinishPoint() {
+		return finishPoint;
+	}
+
+	public LocalTime getTime() {
+		return time;
+	}
+
+	public int seatsAvailable() {
+		return numberOfSeats - passengerList.size();
+	}
+
+	public List<User> getRequestList() {
+		return requestList;
+	}
+
+	public List<User> getPassengerList() {
+		return passengerList;
+	}
 }

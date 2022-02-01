@@ -1,11 +1,14 @@
 package it.uniroma2.progettoispw.briscese.ui;
 
+import it.uniroma2.progettoispw.briscese.bean.LoginBean;
 import it.uniroma2.progettoispw.briscese.bean.NotificationBean;
+import it.uniroma2.progettoispw.briscese.controller.LoginController;
+import it.uniroma2.progettoispw.briscese.exceptions.MyLoginException;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public abstract class MyViewController {
@@ -37,9 +40,12 @@ public abstract class MyViewController {
 		//Adding buttons to the dialog pane
 		ButtonType type = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
 		dialog.getDialogPane().getButtonTypes().add(type);
+		dialog.setTitle("ERROR");
+		Text text = new Text(message);
+		text.setWrappingWidth(300);
+		dialog.getDialogPane().setContent(text);
+		dialog.getDialogPane().setPadding(new Insets(8,8,8,8));
 
-		dialog.setTitle("CRITICAL ERROR");
-		dialog.setContentText("Cannot load user interface:\n"+message);
 		dialog.showAndWait();
 	}
 
@@ -50,4 +56,16 @@ public abstract class MyViewController {
 	protected void setNotificationBean(NotificationBean notificationBean) {
 		this.notificationBean = notificationBean;
 	}
+
+	public void askControllerToLogout() {
+		LoginController controller = new LoginController();
+		LoginBean loginBean = new LoginBean(sessionToken.getUserId(), "");
+		try {
+			controller.logout(loginBean, notificationBean);
+		} catch (MyLoginException e) {
+			Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK);
+			alert.showAndWait();
+		}
+	}
+
 }

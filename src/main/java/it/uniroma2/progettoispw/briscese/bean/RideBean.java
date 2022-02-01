@@ -1,14 +1,31 @@
 package it.uniroma2.progettoispw.briscese.bean;
 
+import it.uniroma2.progettoispw.briscese.model.Ride;
+
 public class RideBean {
 	private int rideId;
 	private int driverId;
 	private int numberOfSeats;
+	private int seatsAvailable;
+	private String driverName;
 	private String startPoint;
 	private String finishPoint;
 	private String date;
 	private String time;
 
+	public RideBean() {}
+
+	public RideBean(Ride ride, String driverName) {
+		this.rideId = ride.getRideId();
+		this.driverId = ride.getDriver().getUserId();
+		this.driverName = driverName;
+		this.numberOfSeats = ride.getNumberOfSeats();
+		this.seatsAvailable = ride.seatsAvailable();
+		this.startPoint = ride.getStartPoint();
+		this.finishPoint = ride.getFinishPoint();
+		this.date = ride.getDate().toString();
+		this.time = ride.getTime().toString();
+	}
 
 	public int getRideId() {
 		return rideId;
@@ -64,5 +81,13 @@ public class RideBean {
 
 	public void setTime(String time) {
 		this.time = time;
+	}
+
+	public int getSeatsAvailable() {
+		return seatsAvailable;
+	}
+
+	public String getDriverName() {
+		return driverName;
 	}
 }

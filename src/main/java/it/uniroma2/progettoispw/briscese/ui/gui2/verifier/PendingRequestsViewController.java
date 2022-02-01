@@ -1,6 +1,6 @@
 package it.uniroma2.progettoispw.briscese.ui.gui2.verifier;
 
-import it.uniroma2.progettoispw.briscese.bean.RequestBean;
+import it.uniroma2.progettoispw.briscese.bean.UpgradeRequestBean;
 import it.uniroma2.progettoispw.briscese.controller.VerifyRequestsController;
 import it.uniroma2.progettoispw.briscese.observer_gof.Observer;
 import it.uniroma2.progettoispw.briscese.ui.gui2.MyMobileViewController;
@@ -22,7 +22,7 @@ public class PendingRequestsViewController extends MyMobileViewController implem
 	public void onRefreshButtonClick() {
 		listView.getItems().clear();
 
-		for (RequestBean b : controller.getPendingRequests()) {
+		for (UpgradeRequestBean b : controller.getPendingRequests()) {
 			String item = "ReqID: " + b.getRequestId() + " (" + b.getRequestDate() + ")" +
 					"\nUser: " + b.getUserId() +
 					"\nLic.Code: " + b.getLicenseCode() +
@@ -34,6 +34,7 @@ public class PendingRequestsViewController extends MyMobileViewController implem
 
 	public void onBackButtonClick(ActionEvent event) {
 		nextView(event);
+		controller.detach(this);
 	}
 
 	@Override

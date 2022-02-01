@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane onMouseDragged="#onMouseDragged" onMousePressed="#onMousePressed" prefHeight="600.0" prefWidth="400.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniroma2.progettoispw.briscese.ui.gui2.passenger.NotificationsViewController">
+<children>
+    <Button mnemonicParsing="false" onAction="#onBackButtonClick" text="&lt; Back" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="4.0">
+        <font>
+            <Font size="14.0" />
+        </font>
+    </Button>
+      <ListView fx:id="listView" layoutX="100.0" layoutY="400.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="48.0" />
+</children>
+</AnchorPane>

@@ -105,4 +105,13 @@ public class LoginController {
 
 		return generatedPassword;
 	}
+
+	public void logout(LoginBean loginBean, NotificationBean notificationBean) throws MyLoginException {
+		try {
+			User user = UserCatalog.getInstance().findUser(loginBean.getUserId());
+			user.unsubscribe(notificationBean);
+		} catch (UserNotFoundException e) {
+			throw new MyLoginException("Failed logout.\n"+e.getMessage());
+		}
+	}
 }

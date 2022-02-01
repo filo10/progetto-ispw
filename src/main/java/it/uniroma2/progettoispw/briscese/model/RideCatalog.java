@@ -1,7 +1,7 @@
 package it.uniroma2.progettoispw.briscese.model;
 
+import it.uniroma2.progettoispw.briscese.exceptions.RideNotFoundException;
 import it.uniroma2.progettoispw.briscese.exceptions.RoleException;
-import it.uniroma2.progettoispw.briscese.model.roles.Driver;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -11,7 +11,7 @@ import java.util.List;
 public class RideCatalog {
 	private static RideCatalog instance = null;
 
-	private int nextId; // TODO vedi requestCatalog
+	private int nextId; // TODO vedi requestCatalog. setta da DB
 	private List<Ride> rideList;
 
 
@@ -32,4 +32,26 @@ public class RideCatalog {
 
 		return ride;
 	}
+
+	public List<Ride> getAvailableRides() {
+		List<Ride> list = new ArrayList<>();
+		for (Ride ride : rideList) {
+			if ((ride.getDate().compareTo(LocalDate.now()) >= 0) && (ride.isAvailable()) )
+				list.add(ride);
+		}
+		return list;
+	}
+
+	public List<Ride> getRides() {
+		return rideList;
+	}
+
+	public Ride findRide(int rideId) throws RideNotFoundException {
+		for (Ride ride : rideList) {
+			if (ride.getRideId() == rideId)
+				return ride;
+		}
+		throw new RideNotFoundException(rideId);
+	}
+
 }

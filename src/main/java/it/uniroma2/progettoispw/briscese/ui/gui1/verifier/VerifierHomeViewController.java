@@ -1,15 +1,15 @@
 package it.uniroma2.progettoispw.briscese.ui.gui1.verifier;
 
-import it.uniroma2.progettoispw.briscese.bean.RequestBean;
+import it.uniroma2.progettoispw.briscese.bean.UpgradeRequestBean;
 import it.uniroma2.progettoispw.briscese.controller.VerifyRequestsController;
 import it.uniroma2.progettoispw.briscese.observer_gof.Observer;
 import it.uniroma2.progettoispw.briscese.ui.gui1.HomeViewController;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,8 +18,6 @@ import java.util.List;
 public class VerifierHomeViewController extends HomeViewController implements Observer {
 	private VerifyRequestsController logicController = new VerifyRequestsController();
 	@FXML private VBox vbox;
-	@FXML private Label nameLabel;
-	@FXML private Label roleLabel;
 	@FXML private Label notificationLabel;
 
 	@FXML
@@ -30,9 +28,9 @@ public class VerifierHomeViewController extends HomeViewController implements Ob
 	public void onRefreshButtonClick() {
 		try {
 			vbox.getChildren().clear();
-			List<RequestBean> requests = logicController.getPendingRequests();
+			List<UpgradeRequestBean> requests = logicController.getPendingRequests();
 
-			for (RequestBean bean : requests) {
+			for (UpgradeRequestBean bean : requests) {
 				FXMLLoader loader = new FXMLLoader();
 				loader.setLocation(getClass().getResource("/it/uniroma2/progettoispw/gui1/items/requestslist-item.fxml"));
 				Node item = loader.load();
@@ -47,7 +45,7 @@ public class VerifierHomeViewController extends HomeViewController implements Ob
 			}
 			notificationLabel.setVisible(false);
 		} catch (IOException e) {
-			alertDialogFXMLError(e.getMessage());
+			alertDialogFXMLError(e.getCause().toString() + "\n" + e.getMessage());
 		}
 	}
 
@@ -56,20 +54,14 @@ public class VerifierHomeViewController extends HomeViewController implements Ob
 		notificationLabel.setVisible(true);
 	}
 
-	public void onLogoutButtonClick() {
-		logout();
-	}
-
 	@Override
-	public void injectSessionToken() {
-		nameLabel.setText(sessionToken.getName() + "\n(" + sessionToken.getUserId() + ")");
-		roleLabel.setText(sessionToken.getRole());
-	}
-
-	@Override
-	public void logout() {
-		Stage thisWindow = (Stage) nameLabel.getScene().getWindow();
+	public void logout(ActionEvent event) {
+		super.logout(event);
 		logicController.detach(this);
-		thisWindow.close();
 	}
+
+
+
+	// TODO uniformare view?
+	// TODO uniformare notifiche?
 }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane onMouseDragged="#onMouseDragged" onMousePressed="#onMousePressed" prefHeight="600.0" prefWidth="400.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniroma2.progettoispw.briscese.ui.gui2.passenger.RequestSeatViewController">
+    <children>
+        <Button mnemonicParsing="false" onAction="#onBackButtonClick" text="&lt; Back" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="4.0">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Button>
+      <VBox alignment="TOP_CENTER" layoutX="1.0" layoutY="49.0" spacing="8.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="48.0">
+         <children>
+            <HBox alignment="CENTER" spacing="8.0">
+               <children>
+                  <TextField fx:id="textField" promptText="Type here RideID to send request" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="sendButton" mnemonicParsing="false" onAction="#onSendButtonClick" text="Send request">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets left="8.0" right="8.0" />
+               </padding>
+            </HBox>
+              <ListView fx:id="listView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+         </children>
+         <padding>
+            <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+         </padding>
+      </VBox>
+    </children>
+</AnchorPane>

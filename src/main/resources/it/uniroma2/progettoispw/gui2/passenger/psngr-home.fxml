@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane onMouseDragged="#onMouseDragged" onMousePressed="#onMousePressed" prefHeight="600.0" prefWidth="400.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniroma2.progettoispw.briscese.ui.gui2.passenger.PsngrHomeControllerUI">
+<AnchorPane onMouseDragged="#onMouseDragged" onMousePressed="#onMousePressed" prefHeight="600.0" prefWidth="400.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniroma2.progettoispw.briscese.ui.gui2.MyMobileHomeViewController">
    <children>
       <VBox alignment="TOP_CENTER" layoutX="150.0" layoutY="182.0" prefHeight="200.0" prefWidth="100.0" spacing="16.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <padding>
@@ -20,7 +20,7 @@
                   <Insets bottom="48.0" />
                </VBox.margin>
             </Label>
-            <Button mnemonicParsing="false" onAction="#onNavigationButtonClick" prefHeight="50.0" prefWidth="240.0" text="Reserve a Ride" textAlignment="CENTER" userData="/it/uniroma2/progettoispw/gui2/passenger/reserveride-view.fxml">
+            <Button mnemonicParsing="false" onAction="#onNavigationButtonClick" prefHeight="50.0" prefWidth="240.0" text="Reserve a seat" textAlignment="CENTER" userData="/it/uniroma2/progettoispw/gui2/passenger/requestSeat-view.fxml">
                <font>
                   <Font size="18.0" />
                </font>
@@ -31,6 +31,11 @@
                </font>
             </Button>
             <Button mnemonicParsing="false" onAction="#onNavigationButtonClick" prefHeight="50.0" prefWidth="240.0" text="Upgrade to Driver" textAlignment="CENTER" userData="/it/uniroma2/progettoispw/gui2/passenger/upgradetodriver-view.fxml">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="notificationsButton" layoutX="89.0" layoutY="293.0" mnemonicParsing="false" onAction="#onNotificationsButtonClick" prefHeight="50.0" prefWidth="240.0" text="Notifications" textAlignment="CENTER" userData="/it/uniroma2/progettoispw/gui2/passenger/notifications-view.fxml">
                <font>
                   <Font size="18.0" />
                </font>

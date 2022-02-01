@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane onMouseDragged="#onMouseDragged" onMousePressed="#onMousePressed" prefHeight="600.0" prefWidth="400.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniroma2.progettoispw.briscese.ui.gui2.driver.MyRidesViewController">
+<children>
+    <Button mnemonicParsing="false" onAction="#onBackButtonClick" text="&lt; Back" userData="/it/uniroma2/progettoispw/gui2/driver/driver-home.fxml" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="4.0">
+        <font>
+            <Font size="14.0" />
+        </font>
+    </Button>
+      <VBox alignment="TOP_CENTER" layoutX="1.0" layoutY="47.0" spacing="8.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="46.0">
+         <children>
+            <HBox alignment="CENTER" spacing="8.0">
+               <children>
+                  <TextField fx:id="textField" promptText="RideID" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <Button mnemonicParsing="false" onAction="#onViewButtonClick" text="View Ride" userData="/it/uniroma2/progettoispw/gui2/driver/ride-view.fxml">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets left="8.0" right="8.0" />
+               </VBox.margin>
+            </HBox>
+            <Separator prefWidth="200.0" />
+            <Label text="My Rides">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <ListView fx:id="ridesListView" prefHeight="235.0" prefWidth="390.0" VBox.vgrow="ALWAYS">
+               <padding>
+                  <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+               </padding>
+            </ListView>
+         </children>
+         <padding>
+            <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+         </padding>
+      </VBox>
+</children>
+</AnchorPane>

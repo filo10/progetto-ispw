@@ -1,6 +1,6 @@
 package it.uniroma2.progettoispw.briscese.controller;
 
-import it.uniroma2.progettoispw.briscese.bean.RequestBean;
+import it.uniroma2.progettoispw.briscese.bean.UpgradeRequestBean;
 import it.uniroma2.progettoispw.briscese.exceptions.UpgradeRequestNotFoundException;
 import it.uniroma2.progettoispw.briscese.model.UpgradeRequest;
 import it.uniroma2.progettoispw.briscese.model.UpgradeRequestCatalog;
@@ -23,11 +23,11 @@ public class VerifyRequestsController extends Subject implements Observer {
 		notifyObservers(); // ho ricevuto una notifica da quello che osservavo, notifico chi mi osserva. questo dovrà richiamare getpending
 	}
 
-	public List<RequestBean> getPendingRequests() {
-		List<RequestBean> list = new ArrayList<>();
+	public List<UpgradeRequestBean> getPendingRequests() {
+		List<UpgradeRequestBean> list = new ArrayList<>();
 
 		for (UpgradeRequest ur : UpgradeRequestCatalog.getInstance().getPendingRequests()) {
-			RequestBean newBean = new RequestBean(ur.getRequestId(), ur.getRequestant().getUserId(), ur.getLicenseCode(), ur.getLicenseExpiration(), ur.getRequestDate());
+			UpgradeRequestBean newBean = new UpgradeRequestBean(ur.getRequestId(), ur.getRequestant().getUserId(), ur.getLicenseCode(), ur.getLicenseExpiration(), ur.getRequestDate());
 			list.add(newBean);
 		}
 

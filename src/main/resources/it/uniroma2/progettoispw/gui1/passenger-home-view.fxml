@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="borderPane" onMouseDragged="#onMouseDragged" onMousePressed="#onMousePressed" prefHeight="500.0" prefWidth="700.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniroma2.progettoispw.briscese.ui.gui1.passenger.PassengerHomeViewController">
+<BorderPane fx:id="borderPane" onMouseDragged="#onMouseDragged" onMousePressed="#onMousePressed" prefHeight="500.0" prefWidth="700.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniroma2.progettoispw.briscese.ui.gui1.HomeViewController">
    <left>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #2B9348;" BorderPane.alignment="CENTER">
          <children>
@@ -19,9 +19,10 @@
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                </padding>
                <children>
-                  <Button contentDisplay="CENTER" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAPageButtonClick" prefWidth="150.0" text="reserve a ride" />
-                  <Button contentDisplay="CENTER" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAPageButtonClick" prefWidth="150.0" text="my requests" />
-                  <Button contentDisplay="CENTER" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAPageButtonClick" prefWidth="150.0" text="upgrade to driver" userData="/it/uniroma2/progettoispw/gui1/pages/upgradetodriver-page.fxml" />
+                  <Button contentDisplay="CENTER" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAPageButtonClick" prefWidth="150.0" text="Reserve a seat" userData="/it/uniroma2/progettoispw/gui1/pages/requestSeat-page.fxml" />
+                  <Button contentDisplay="CENTER" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAPageButtonClick" prefWidth="150.0" text="My reservations" />
+                  <Button contentDisplay="CENTER" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAPageButtonClick" prefWidth="150.0" text="Upgrade to Driver" userData="/it/uniroma2/progettoispw/gui1/pages/upgradetodriver-page.fxml" />
+                  <Button fx:id="notificationsButton" contentDisplay="CENTER" layoutX="35.0" layoutY="85.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#onNotificationsButtonClick" prefWidth="150.0" text="Notifications" userData="/it/uniroma2/progettoispw/gui1/pages/upgradetodriver-page.fxml" />
                </children>
             </VBox>
             <VBox alignment="BOTTOM_LEFT" layoutX="50.0" layoutY="286.0" prefHeight="200.0" prefWidth="100.0" spacing="8.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
@@ -34,7 +35,7 @@
                         <Font size="18.0" />
                      </font></Label>
                   <Label fx:id="roleLabel" textFill="WHITE" />
-                  <Button mnemonicParsing="false" onAction="#onLogoutButtonClick" style="-fx-background-color: red;" text="log out" textFill="WHITE" />
+                  <Button mnemonicParsing="false" onAction="#logout" style="-fx-background-color: red;" text="log out" textFill="WHITE" />
                </children>
             </VBox>
          </children>

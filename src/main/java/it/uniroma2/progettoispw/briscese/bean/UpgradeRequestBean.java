@@ -5,7 +5,7 @@ import it.uniroma2.progettoispw.briscese.model.UpgradeRequestStatus;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class RequestBean {
+public class UpgradeRequestBean {
 	private int requestId;
 	private int userId;
 	private String licenseCode;
@@ -15,13 +15,13 @@ public class RequestBean {
 	private int verifierId;
 
 
-	public RequestBean(int userId, String licenseCode, String licenseExpiration) {
+	public UpgradeRequestBean(int userId, String licenseCode, String licenseExpiration) {
 		this.userId = userId;
 		this.licenseCode = licenseCode;
 		this.licenseExpiration = licenseExpiration;
 	}
 
-	public RequestBean(int requestId, int userId, String licenseCode, LocalDate licenseExpiration, LocalDate requestDate) {
+	public UpgradeRequestBean(int requestId, int userId, String licenseCode, LocalDate licenseExpiration, LocalDate requestDate) {
 		this.requestId = requestId;
 		this.userId = userId;
 		this.licenseCode = licenseCode;
@@ -36,7 +36,7 @@ public class RequestBean {
 		this.requestDate = requestDateString;
 	}
 
-	public RequestBean(int requestId, UpgradeRequestStatus status) {
+	public UpgradeRequestBean(int requestId, UpgradeRequestStatus status) {
 		this.requestId = requestId;
 		switch (status) {
 			case PENDING:
@@ -51,7 +51,7 @@ public class RequestBean {
 		}
 	}
 
-	public RequestBean(int requestId) {
+	public UpgradeRequestBean(int requestId) {
 		this.requestId = requestId;
 	}
 

@@ -24,12 +24,12 @@
       <PasswordField fx:id="passwordField" alignment="CENTER" maxWidth="-Infinity" prefWidth="200.0" promptText="password" />
       <HBox alignment="CENTER" prefWidth="200.0" spacing="16.0">
          <children>
-            <Button alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onLoginButtonClick" prefWidth="130.0" text="Log in (GUI1)" textAlignment="CENTER">
+            <Button alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onLoginGui1" prefWidth="130.0" text="Log in (GUI1)" textAlignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button alignment="CENTER" layoutX="98.0" layoutY="10.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onLoginGui2ButtonClick" prefWidth="130.0" text="Log in (GUI2)" textAlignment="CENTER">
+            <Button alignment="CENTER" layoutX="98.0" layoutY="10.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onLoginGui2" prefWidth="130.0" text="Log in (GUI2)" textAlignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>

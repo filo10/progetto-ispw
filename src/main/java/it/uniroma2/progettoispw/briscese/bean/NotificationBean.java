@@ -1,7 +1,6 @@
 package it.uniroma2.progettoispw.briscese.bean;
 
 import it.uniroma2.progettoispw.briscese.ui.MyViewController;
-import it.uniroma2.progettoispw.briscese.ui.gui1.HomeViewController;
 
 public class NotificationBean {
 	private MyViewController viewController;

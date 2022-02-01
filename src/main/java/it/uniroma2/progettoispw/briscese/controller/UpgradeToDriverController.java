@@ -1,6 +1,6 @@
 package it.uniroma2.progettoispw.briscese.controller;
 
-import it.uniroma2.progettoispw.briscese.bean.RequestBean;
+import it.uniroma2.progettoispw.briscese.bean.UpgradeRequestBean;
 import it.uniroma2.progettoispw.briscese.dao.UserDAO;
 import it.uniroma2.progettoispw.briscese.exceptions.CannotAddRoleException;
 import it.uniroma2.progettoispw.briscese.exceptions.UpgradeException;
@@ -14,7 +14,7 @@ import java.time.LocalDate;
 
 public class UpgradeToDriverController extends Subject {
 
-	public RequestBean newRequest(RequestBean rbean) throws UpgradeException {
+	public UpgradeRequestBean newRequest(UpgradeRequestBean rbean) throws UpgradeException {
 		// create a new upgrade to driver request from a passanger
 		try {
 			User requestant = UserCatalog.getInstance().findUser(rbean.getUserId());
@@ -34,7 +34,7 @@ public class UpgradeToDriverController extends Subject {
 		}
 	}
 
-	public void closeRequest(RequestBean rbean) throws UpgradeException {
+	public void closeRequest(UpgradeRequestBean rbean) throws UpgradeException {
 		try {
 			// "chiudi" la richiesta
 			UpgradeRequest request = UpgradeRequestCatalog.getInstance().findRequest(rbean.getRequestId());
@@ -70,13 +70,13 @@ public class UpgradeToDriverController extends Subject {
 		}
 	}
 
-	public RequestBean getRequestStatus(RequestBean bean) throws UpgradeRequestNotFoundException {
+	public UpgradeRequestBean getRequestStatus(UpgradeRequestBean bean) throws UpgradeRequestNotFoundException {
 		UpgradeRequest request = UpgradeRequestCatalog.getInstance().findRequest(bean.getRequestId());
-		return new RequestBean(request.getRequestId(), request.getStatus());
+		return new UpgradeRequestBean(request.getRequestId(), request.getStatus());
 	}
 
-	public RequestBean getRequestInfo(RequestBean bean) throws UpgradeRequestNotFoundException {
+	public UpgradeRequestBean getRequestInfo(UpgradeRequestBean bean) throws UpgradeRequestNotFoundException {
 		UpgradeRequest request = UpgradeRequestCatalog.getInstance().findRequest(bean.getRequestId());
-		return new RequestBean(request.getRequestId(), request.getRequestant().getUserId(), request.getLicenseCode(), request.getLicenseExpiration(), request.getRequestDate());
+		return new UpgradeRequestBean(request.getRequestId(), request.getRequestant().getUserId(), request.getLicenseCode(), request.getLicenseExpiration(), request.getRequestDate());
 	}
 }

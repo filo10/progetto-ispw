@@ -1,6 +1,6 @@
 package it.uniroma2.progettoispw.briscese.ui.gui2.verifier;
 
-import it.uniroma2.progettoispw.briscese.bean.RequestBean;
+import it.uniroma2.progettoispw.briscese.bean.UpgradeRequestBean;
 import it.uniroma2.progettoispw.briscese.controller.UpgradeToDriverController;
 import it.uniroma2.progettoispw.briscese.controller.VerifyRequestsController;
 import it.uniroma2.progettoispw.briscese.exceptions.UpgradeException;
@@ -31,7 +31,7 @@ public class VerifyrequestViewController extends MyMobileViewController {
 				setDisableDecisionButtons(true);
 				return;
 			}
-			fillInfoLabel(requestController.getRequestInfo(new RequestBean(requestId)));
+			fillInfoLabel(requestController.getRequestInfo(new UpgradeRequestBean(requestId)));
 			setDisableDecisionButtons(false);
 		} catch (NumberFormatException e) {
 			infoLabel.setText("RequestID must be a number");
@@ -41,7 +41,7 @@ public class VerifyrequestViewController extends MyMobileViewController {
 		}
 	}
 
-	private void fillInfoLabel(RequestBean bean) {
+	private void fillInfoLabel(UpgradeRequestBean bean) {
 		String string = "Request ID: " + bean.getRequestId() +
 				"\nRequest date: " + bean.getRequestDate() +
 				"\nUser ID: " + bean.getUserId() +
@@ -53,7 +53,7 @@ public class VerifyrequestViewController extends MyMobileViewController {
 	public void onDecisionButtonClick(ActionEvent event) {
 		Button pressedButton = (Button) event.getSource();
 
-		RequestBean bean = new RequestBean(requestId);
+		UpgradeRequestBean bean = new UpgradeRequestBean(requestId);
 		bean.setVerifierId(sessionToken.getUserId());
 
 		int status = 0;

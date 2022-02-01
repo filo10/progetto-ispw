@@ -21,7 +21,6 @@ public class OfferrideViewController extends MyMobileViewController {
 	@FXML private TextField finishTF;
 	@FXML private Button offerButton;
 	@FXML private Label label;
-	private ManageRideController controller;
 
 
 	public void onBackButtonClick(ActionEvent event) {
@@ -42,7 +41,7 @@ public class OfferrideViewController extends MyMobileViewController {
 
 		label.setText("");
 
-		controller = new ManageRideController();
+		ManageRideController controller = new ManageRideController();
 		try {
 			controller.offerRide(bean);
 			offerButton.setDisable(true);

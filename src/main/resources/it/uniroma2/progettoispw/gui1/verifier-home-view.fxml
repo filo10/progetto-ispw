@@ -16,7 +16,7 @@
                     <Font size="18.0" />
                 </font></Label>
             <Label fx:id="roleLabel" text="z" textFill="WHITE" />
-            <Button mnemonicParsing="false" onAction="#onLogoutButtonClick" style="-fx-background-color: red;" text="log out" textFill="WHITE" />
+            <Button mnemonicParsing="false" onAction="#logout" style="-fx-background-color: red;" text="log out" textFill="WHITE" />
         </children>
     </HBox>
    <ScrollPane layoutX="200.0" layoutY="155.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="42.0">

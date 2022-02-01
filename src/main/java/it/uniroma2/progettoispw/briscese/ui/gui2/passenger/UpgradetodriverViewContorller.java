@@ -1,6 +1,6 @@
 package it.uniroma2.progettoispw.briscese.ui.gui2.passenger;
 
-import it.uniroma2.progettoispw.briscese.bean.RequestBean;
+import it.uniroma2.progettoispw.briscese.bean.UpgradeRequestBean;
 import it.uniroma2.progettoispw.briscese.controller.UpgradeToDriverController;
 import it.uniroma2.progettoispw.briscese.exceptions.UpgradeException;
 import it.uniroma2.progettoispw.briscese.exceptions.UpgradeRequestNotFoundException;
@@ -28,9 +28,9 @@ public class UpgradetodriverViewContorller extends MyMobileViewController implem
 
 	public void onRequestButtonClick() {
 		try {
-			RequestBean bean = new RequestBean(sessionToken.getUserId(), licensecodeTextField.getText(), datePicker.getValue().toString());
+			UpgradeRequestBean bean = new UpgradeRequestBean(sessionToken.getUserId(), licensecodeTextField.getText(), datePicker.getValue().toString());
 
-			RequestBean receivedBean = controller.newRequest(bean);
+			UpgradeRequestBean receivedBean = controller.newRequest(bean);
 			requestId = receivedBean.getRequestId();
 			setStatusLabel(receivedBean.getStatus());
 			requestButton.setDisable(true);
@@ -41,15 +41,14 @@ public class UpgradetodriverViewContorller extends MyMobileViewController implem
 	}
 
 	public void onBackButtonClick(ActionEvent event) {
-		//nextView(event);
 		goToPreviusView(event);
 	}
 
 	@Override
 	public void update() {
-		RequestBean receivedBean = null;
+		UpgradeRequestBean receivedBean = null;
 		try {
-			receivedBean = controller.getRequestStatus(new RequestBean(requestId));
+			receivedBean = controller.getRequestStatus(new UpgradeRequestBean(requestId));
 			setStatusLabel(receivedBean.getStatus());
 		} catch (UpgradeRequestNotFoundException e) {
 			statusLabel.setText("No upgrade request with requestId="+requestId);
