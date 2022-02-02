@@ -2,7 +2,7 @@ package it.uniroma2.progettoispw.briscese.ui.gui1.passenger;
 
 import it.uniroma2.progettoispw.briscese.bean.RideBean;
 import it.uniroma2.progettoispw.briscese.bean.SeatRequestBean;
-import it.uniroma2.progettoispw.briscese.controller.ReserveSeatContorller;
+import it.uniroma2.progettoispw.briscese.controller.ReserveSeatController;
 import it.uniroma2.progettoispw.briscese.exceptions.SeatRequestException;
 import it.uniroma2.progettoispw.briscese.ui.gui1.PageController;
 import javafx.fxml.FXML;
@@ -16,7 +16,7 @@ import java.util.List;
 public class RequestSeatPageController extends PageController {
 	@FXML private TextField rideidTF;
 	@FXML private ListView<String> listView;
-	private ReserveSeatContorller contorller = new ReserveSeatContorller();
+	private ReserveSeatController contorller = new ReserveSeatController();
 
 
 	@FXML

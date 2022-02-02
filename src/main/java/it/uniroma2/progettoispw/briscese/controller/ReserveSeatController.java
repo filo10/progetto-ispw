@@ -14,13 +14,11 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class ReserveSeatContorller {
+public class ReserveSeatController {
 
 	public List<RideBean> getAvailableRides() {
 		List<RideBean> list = new ArrayList<>();
-		List<Ride> listToSort = new ArrayList<>();
-
-		listToSort = RideCatalog.getInstance().getAvailableRides();
+		List<Ride> listToSort = RideCatalog.getInstance().getAvailableRides();
 		listToSort.sort(Comparator.comparing(Ride::getDate)); // sort by date
 
 		for (Ride ride : listToSort)
@@ -32,8 +30,7 @@ public class ReserveSeatContorller {
 	public void sendRequest(SeatRequestBean bean) throws SeatRequestException {
 		try {
 			Ride ride = RideCatalog.getInstance().findRide(bean.getRideId());
-			User user = null;
-			user = UserCatalog.getInstance().findUser(bean.getPassengerId());
+			User user = UserCatalog.getInstance().findUser(bean.getPassengerId());
 			ride.requestSeat(user);
 		} catch (RideNotFoundException | UserNotFoundException e) {
 			throw new SeatRequestException(e.getMessage());
@@ -41,5 +38,6 @@ public class ReserveSeatContorller {
 	}
 
 	// TODO cancel request
-	// leave Ride
+
+	// TODO leave Ride
 }

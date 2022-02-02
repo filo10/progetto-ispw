@@ -25,7 +25,7 @@ public class HomeViewController extends MyViewController {
 	private List<String> notifications = new ArrayList<>();
 
 	public void injectSessionToken() {
-		nameLabel.setText(sessionToken.getName() + "\n(" + sessionToken.getUserId() + ")");
+		nameLabel.setText(sessionToken.getName() + "\n[userID: " + sessionToken.getUserId() + "]");
 		roleLabel.setText(sessionToken.getRole());
 	}
 

@@ -25,7 +25,6 @@ public class MyRidesViewController extends MyMobileViewController {
 				textField.clear();
 				return;
 			}
-			//RideViewController nextController = (RideViewController) nextViewAndRememberThisScene("/it/uniroma2/progettoispw/gui2/driver/ride-view.fxml", textField.getScene());
 			RideViewController nextController = (RideViewController) nextViewAndRememberThisScene(event);
 			nextController.shareRideInfo(rideId);
 		} catch (NumberFormatException e) {

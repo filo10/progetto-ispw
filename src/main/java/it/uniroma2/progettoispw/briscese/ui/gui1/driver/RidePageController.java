@@ -7,6 +7,7 @@ import it.uniroma2.progettoispw.briscese.controller.ManageRideController;
 import it.uniroma2.progettoispw.briscese.exceptions.RideManagementException;
 import it.uniroma2.progettoispw.briscese.exceptions.RideNotFoundException;
 import it.uniroma2.progettoispw.briscese.ui.gui1.PageController;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -18,8 +19,6 @@ import java.util.List;
 public class RidePageController extends PageController {
 	private Node previousNodeAtCenter;
 	private ManageRideController controller = new ManageRideController();
-	private List<SeatRequestBean> passengersList;
-	private List<SeatRequestBean> requestsList;
 	private int rideId;
 	@FXML
 	private Button acceptButton;
@@ -51,7 +50,7 @@ public class RidePageController extends PageController {
 
 	private void showInfo() {
 		try {
-			// 	- prendi le info per la corsa rideid
+			// 	save rideId and show ride info
 			RideBean beanToSend = new RideBean();
 			beanToSend.setRideId(rideId);
 			RideBean bean = controller.getRide(beanToSend);
@@ -59,22 +58,22 @@ public class RidePageController extends PageController {
 					bean.getRideId(), bean.getDate(), bean.getTime(), bean.getNumberOfSeats(), bean.getStartPoint(), bean.getFinishPoint());
 			rideLabel.setText(rideString);
 
-			//	- prendi i passeggeri
-			passengersList = controller.getRidePassengers(beanToSend);
+			//	get passengers
+			List<SeatRequestBean> passengersList = controller.getRidePassengers(beanToSend);
 			for (SeatRequestBean srbean : passengersList) {
 				String text = passengersLabel.getText() + srbean.getPassengerName() + " (userID: " + srbean.getPassengerId() + ")\n";
 				passengersLabel.setText(text);
 			}
 
-			//	- prendi le richieste se la corsa è oggi o nel futuro
+			//	if ride is not in the past, get requests
 			if (LocalDate.now().compareTo(LocalDate.parse(bean.getDate())) <= 0) {
 				requestsLabel.setVisible(true);
 				requestsTitle.setVisible(true);
 				acceptButton.setVisible(true);
 				declineButton.setVisible(true);
 				userIdTextField.setVisible(true);
-				requestsList = controller.getRideSeatRequests(beanToSend);
-				for (SeatRequestBean srbean : requestsList) {
+				List<SeatRequestBean> requestantsList = controller.getRideSeatRequests(beanToSend);
+				for (SeatRequestBean srbean : requestantsList) {
 					String text = requestsLabel.getText() + srbean.getPassengerName() + " (userID: " + srbean.getPassengerId() + ")\n";
 					requestsLabel.setText(text);
 				}
@@ -87,15 +86,24 @@ public class RidePageController extends PageController {
 		}
 	}
 
-	public void onAcceptClick() {
+	public void onAcceptDeclineClick(ActionEvent event) {
 		try {
+			boolean response;
+			if (event.getSource() == acceptButton) {
+				response = true;
+			} else if (event.getSource() == declineButton) {
+				response = false;
+			} else {
+				return;
+			}
+
 			if (userIdTextField.getText().isBlank())
 				return;
 			int passengerId = checkTextFieldIsInt();
 
-			SeatReplyBean beanToSend = new SeatReplyBean(rideId, passengerId, true);
+			SeatReplyBean beanToSend = new SeatReplyBean(rideId, passengerId, response);
 			controller.replySeatRequest(beanToSend);
-			// refresh lists TODO serve tenere memoria dei beans?
+
 			passengersLabel.setText("");
 			requestsLabel.setText("");
 			showInfo();
@@ -106,9 +114,24 @@ public class RidePageController extends PageController {
 		}
 	}
 
-	// TODO rifiuta richiesta (refresh liste)
+	public void onRemoveClick() {
+		try {
+			if (userIdTextField.getText().isBlank())
+				return;
+			int passengerId = checkTextFieldIsInt();
 
-	// TODO elimina passeggero (refresh liste)
+			SeatReplyBean beanToSend = new SeatReplyBean(rideId, passengerId, false);
+			controller.removePassenger(beanToSend);
+
+			passengersLabel.setText("");
+			requestsLabel.setText("");
+			showInfo();
+
+		} catch (RideManagementException e) {
+			Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK);
+			alert.showAndWait();
+		}
+	}
 
 	private int checkTextFieldIsInt() {
 		int integer = -1;
@@ -122,4 +145,7 @@ public class RidePageController extends PageController {
 		}
 		return integer;
 	}
+
+	// TODO delete ride
+
 }

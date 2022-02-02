@@ -2,7 +2,7 @@ package it.uniroma2.progettoispw.briscese.ui.gui2.passenger;
 
 import it.uniroma2.progettoispw.briscese.bean.RideBean;
 import it.uniroma2.progettoispw.briscese.bean.SeatRequestBean;
-import it.uniroma2.progettoispw.briscese.controller.ReserveSeatContorller;
+import it.uniroma2.progettoispw.briscese.controller.ReserveSeatController;
 import it.uniroma2.progettoispw.briscese.exceptions.SeatRequestException;
 import it.uniroma2.progettoispw.briscese.ui.gui2.MyMobileViewController;
 import javafx.event.ActionEvent;
@@ -15,7 +15,7 @@ public class RequestSeatViewController extends MyMobileViewController {
 	@FXML private ListView<String> listView;
 	@FXML private TextField textField;
 	@FXML private Button sendButton;
-	private ReserveSeatContorller controller = new ReserveSeatContorller();
+	private ReserveSeatController controller = new ReserveSeatController();
 
 	@FXML
 	public void initialize() {

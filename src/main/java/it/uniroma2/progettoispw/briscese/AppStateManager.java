@@ -23,7 +23,6 @@ public class AppStateManager {
 
 			// TODO corse e loro passegeri
 			// richieste passaggio
-			// recensioni
 
 
 			DBConnectionManager.getInstance().closeConnection();
@@ -43,7 +42,6 @@ public class AppStateManager {
 
 			// TODO corse e loro passeggeri
 			// richieste passaggio
-			// recensioni
 
 			DBConnectionManager.getInstance().closeConnection();
 		} catch (SQLException | DBConnectionException e) {

@@ -75,6 +75,8 @@ public class Ride {
 	public void removePassenger(User passenger) throws SeatRequestException {
 		if (date.isBefore(LocalDate.now()))
 			throw new SeatRequestException("You can't remove passengers from a ride in the past.");
+		if (!passengerList.contains(passenger))
+			throw new SeatRequestException("The user you want to remove is not a passenger of this ride.");
 		if (passengerList.remove(passenger))
 			passenger.publishNotification("You've been removed from " + this);
 	}
