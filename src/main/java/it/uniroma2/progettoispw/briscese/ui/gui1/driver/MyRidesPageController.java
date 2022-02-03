@@ -2,6 +2,7 @@ package it.uniroma2.progettoispw.briscese.ui.gui1.driver;
 
 import it.uniroma2.progettoispw.briscese.bean.RideBean;
 import it.uniroma2.progettoispw.briscese.controller.ManageRideController;
+import it.uniroma2.progettoispw.briscese.exceptions.RideManagementException;
 import it.uniroma2.progettoispw.briscese.ui.SessionToken;
 import it.uniroma2.progettoispw.briscese.ui.gui1.PageController;
 import javafx.fxml.FXML;
@@ -26,11 +27,9 @@ public class MyRidesPageController extends PageController {
 	@FXML
 	void onViewButtonClick() {
 		try {
-			int rideId = Integer.parseInt(rideidTF.getText());
-			if (rideId < 0) {
-				rideidTF.clear();
+			int rideId = checkTextFieldIsIntAndGetValue();
+			if (rideId < 0)
 				return;
-			}
 
 			BorderPane borderPane = (BorderPane) rideidTF.getScene().getRoot();
 
@@ -72,5 +71,33 @@ public class MyRidesPageController extends PageController {
 		}
 	}
 
-	// TODO delete ride
+	public void onDeleteRideClick() {
+		try {
+			int rideId = checkTextFieldIsIntAndGetValue();
+			if (rideId < 0)
+				return;
+
+			RideBean beanToSend = new RideBean();
+			beanToSend.setRideId(rideId);
+			controller.cancelRide(beanToSend);
+
+		} catch (RideManagementException e) {
+			Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK);
+			alert.showAndWait();
+		}
+	}
+
+	private int checkTextFieldIsIntAndGetValue() {
+		int rideId = -1;
+		try {
+			rideId = Integer.parseInt(rideidTF.getText());
+			if (rideId < 0) {
+				rideidTF.clear();
+				return rideId;
+			}
+		} catch (NumberFormatException e) {
+			rideidTF.clear();
+		}
+		return rideId;
+	}
 }

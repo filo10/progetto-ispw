@@ -99,9 +99,11 @@ public class ManageRideController {
 		}
 	}
 
-	public void deleteRide(RideBean bean) throws RideManagementException { //TODO delete ride ... farlo direttamente nelle RideView????????
+	public void cancelRide(RideBean bean) throws RideManagementException {
 		try {
 			Ride ride = RideCatalog.getInstance().findRide(bean.getRideId());
+			if (LocalDate.now().compareTo(ride.getDate()) > 0) // if ride is in the past
+				throw new RideManagementException("Cannot delete a ride in the past.");
 			ride.deleteRide();
 		} catch (RideNotFoundException e) {
 			throw new RideManagementException(e.getMessage());

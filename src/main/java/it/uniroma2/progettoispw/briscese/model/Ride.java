@@ -93,6 +93,7 @@ public class Ride {
 			passenger.publishNotification(this + "%nis CANCELLED");
 		for (User requestingUser : requestList)
 			requestingUser.publishNotification(this + "%nis CANCELLED");
+		RideCatalog.getInstance().deleteRide(this);
 	}
 
 	@Override

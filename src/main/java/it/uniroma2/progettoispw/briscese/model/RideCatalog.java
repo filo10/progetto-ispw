@@ -54,4 +54,8 @@ public class RideCatalog {
 		throw new RideNotFoundException(rideId);
 	}
 
+	public void deleteRide(Ride ride) {
+		rideList.remove(ride);
+	}
+
 }

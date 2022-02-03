@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -25,15 +26,13 @@ public class RidePageController extends PageController {
 	@FXML
 	private Button declineButton;
 	@FXML
-	private Label passengersLabel;
-	@FXML
-	private Label requestsLabel;
-	@FXML
 	private Label requestsTitle;
 	@FXML
 	private Label rideLabel;
 	@FXML
 	private TextField userIdTextField;
+	@FXML private VBox passengersVBox;
+	@FXML private VBox requestsVBox;
 
 
 	public void goBack() {
@@ -61,21 +60,21 @@ public class RidePageController extends PageController {
 			//	get passengers
 			List<SeatRequestBean> passengersList = controller.getRidePassengers(beanToSend);
 			for (SeatRequestBean srbean : passengersList) {
-				String text = passengersLabel.getText() + srbean.getPassengerName() + " (userID: " + srbean.getPassengerId() + ")\n";
-				passengersLabel.setText(text);
+				String text = srbean.getPassengerName() +  " (userID: " + srbean.getPassengerId() + ")";
+				passengersVBox.getChildren().add(new Label(text));
+
 			}
 
 			//	if ride is not in the past, get requests
 			if (LocalDate.now().compareTo(LocalDate.parse(bean.getDate())) <= 0) {
-				requestsLabel.setVisible(true);
 				requestsTitle.setVisible(true);
 				acceptButton.setVisible(true);
 				declineButton.setVisible(true);
 				userIdTextField.setVisible(true);
 				List<SeatRequestBean> requestantsList = controller.getRideSeatRequests(beanToSend);
 				for (SeatRequestBean srbean : requestantsList) {
-					String text = requestsLabel.getText() + srbean.getPassengerName() + " (userID: " + srbean.getPassengerId() + ")\n";
-					requestsLabel.setText(text);
+					String text = srbean.getPassengerName() + " (userID: " + srbean.getPassengerId() + ")";
+					requestsVBox.getChildren().add(new Label(text));
 				}
 			}
 
@@ -104,8 +103,8 @@ public class RidePageController extends PageController {
 			SeatReplyBean beanToSend = new SeatReplyBean(rideId, passengerId, response);
 			controller.replySeatRequest(beanToSend);
 
-			passengersLabel.setText("");
-			requestsLabel.setText("");
+			passengersVBox.getChildren().clear();
+			requestsVBox.getChildren().clear();
 			showInfo();
 
 		} catch (RideManagementException e) {
@@ -123,8 +122,8 @@ public class RidePageController extends PageController {
 			SeatReplyBean beanToSend = new SeatReplyBean(rideId, passengerId, false);
 			controller.removePassenger(beanToSend);
 
-			passengersLabel.setText("");
-			requestsLabel.setText("");
+			requestsVBox.getChildren().clear();
+			passengersVBox.getChildren().clear();
 			showInfo();
 
 		} catch (RideManagementException e) {
@@ -145,7 +144,5 @@ public class RidePageController extends PageController {
 		}
 		return integer;
 	}
-
-	// TODO delete ride
 
 }

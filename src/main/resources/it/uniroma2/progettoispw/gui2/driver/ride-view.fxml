@@ -118,18 +118,24 @@
                         </GridPane>
                         <VBox alignment="CENTER" spacing="8.0">
                            <children>
-                              <TextField fx:id="textField" alignment="CENTER" promptText="UserID of the Passenger to Accept/Remove">
+                              <TextField fx:id="textField" alignment="CENTER" promptText="UserID of the Passenger to Reply request | Remove">
                                  <font>
                                     <Font size="14.0" />
                                  </font></TextField>
-                              <HBox alignment="CENTER" spacing="64.0">
+                              <HBox alignment="CENTER" spacing="16.0">
                                  <children>
-                                    <Button fx:id="acceptButton" mnemonicParsing="false" prefWidth="100.0" text="Accept" textFill="GREEN">
+                                    <Button fx:id="acceptButton" mnemonicParsing="false" onAction="#onManagementButtonsClick" prefWidth="100.0" text="Accept" textFill="GREEN">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Button>
-                                    <Button fx:id="removeButton" mnemonicParsing="false" prefWidth="100.0" text="Remove" textFill="RED">
+                                    <Button fx:id="declineButton" mnemonicParsing="false" onAction="#onManagementButtonsClick" prefWidth="100.0" text="Decline" textFill="RED">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Button>
+                                    <Separator orientation="VERTICAL" prefHeight="18.0" />
+                                    <Button fx:id="removeButton" layoutX="197.0" layoutY="10.0" mnemonicParsing="false" onAction="#onManagementButtonsClick" prefWidth="100.0" text="Remove" textFill="RED">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
@@ -149,13 +155,13 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <ListView fx:id="passengersListView" prefHeight="50.0" prefWidth="382.0" VBox.vgrow="ALWAYS" />
+                        <ListView fx:id="passengersListView" prefHeight="100.0" prefWidth="382.0" />
                         <Label fx:id="reqLabel" text="Requests:">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <ListView fx:id="requestsListView" prefHeight="50.0" prefWidth="382.0" VBox.vgrow="ALWAYS" />
+                        <ListView fx:id="requestsListView" prefHeight="100.0" prefWidth="382.0" VBox.vgrow="ALWAYS" />
                      </children>
                      <padding>
                         <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
@@ -167,5 +173,10 @@
             <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
          </padding>
       </ScrollPane>
+      <Button layoutX="15.0" layoutY="15.0" mnemonicParsing="false" onAction="#onDeleteRideClick" style="-fx-background-color: red;" text="Delete Ride" textFill="WHITE" userData="/it/uniroma2/progettoispw/gui2/driver/driver-home.fxml" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="4.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
 </children>
 </AnchorPane>

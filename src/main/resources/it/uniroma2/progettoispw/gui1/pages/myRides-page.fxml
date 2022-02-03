@@ -24,7 +24,13 @@
                 <HBox alignment="CENTER" spacing="8.0">
                     <children>
                         <TextField fx:id="rideidTF" promptText="RideID" HBox.hgrow="ALWAYS" />
-                        <Button mnemonicParsing="false" onAction="#onViewButtonClick" text="View Ride" />
+                        <Button defaultButton="true" mnemonicParsing="false" onAction="#onViewButtonClick" text="View Ride" />
+                  <Separator orientation="VERTICAL" prefHeight="24.0">
+                     <HBox.margin>
+                        <Insets left="8.0" right="8.0" />
+                     </HBox.margin>
+                  </Separator>
+                  <Button mnemonicParsing="false" onAction="#onDeleteRideClick" text="Delete Ride" textFill="RED" />
                     </children>
                <VBox.margin>
                   <Insets bottom="4.0" />
