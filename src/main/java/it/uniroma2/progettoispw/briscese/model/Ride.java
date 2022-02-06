@@ -57,15 +57,23 @@ public class Ride {
 		}
 	}
 
+	public void cancelSeatRequest(User passenger) throws SeatRequestException {
+		if (!requestList.remove(passenger)) {
+			throw new SeatRequestException("You didn't request a seat for this ride.");
+		}
+	}
+
 	public void replyRequest(User passenger, boolean answer) throws SeatRequestException {
 		if (date.isBefore(LocalDate.now()))
 			throw new SeatRequestException("You can't reply a request for a ride in the past.");
+		if (passengerList.size() >= numberOfSeats)
+			throw new SeatRequestException("Can't add another passenger. The ride is full.");
 		if (!requestList.contains(passenger))
 			throw new SeatRequestException("This user has not requested a seat for this ride.");
 		if (answer) {
 			requestList.remove(passenger);
 			passengerList.add(passenger);
-			passenger.publishNotification("You've been accepted for" + this);
+			passenger.publishNotification("You've been accepted for " + this);
 		} else {
 			requestList.remove(passenger);
 			passenger.publishNotification("Your request has been rejected " + this);
@@ -85,14 +93,16 @@ public class Ride {
 		if (date.isBefore(LocalDate.now()))
 			throw new SeatRequestException("You can't leave a ride in the past.");
 		if (passengerList.remove(passenger))
-			driver.publishNotification("A passenger left this ride:%n" + this);
+			driver.publishNotification("The passenger " + passenger.getUserId() + " left: " + this);
+		else
+			throw new SeatRequestException("You are not a passenger for this ride.");
 	}
 
 	public void deleteRide() {
 		for (User passenger : passengerList)
-			passenger.publishNotification(this + "%nis CANCELLED");
+			passenger.publishNotification(this + " is CANCELLED");
 		for (User requestingUser : requestList)
-			requestingUser.publishNotification(this + "%nis CANCELLED");
+			requestingUser.publishNotification(this + " is CANCELLED");
 		RideCatalog.getInstance().deleteRide(this);
 	}
 

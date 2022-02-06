@@ -37,7 +37,52 @@ public class ReserveSeatController {
 		}
 	}
 
-	// TODO cancel request
+	// TODO implementa in gui2 questi due metodi
+	public void cancelRequest(SeatRequestBean bean) throws SeatRequestException {
+		try {
+			Ride ride = RideCatalog.getInstance().findRide(bean.getRideId());
+			User user = UserCatalog.getInstance().findUser(bean.getPassengerId());
+			ride.cancelSeatRequest(user);
+		} catch (UserNotFoundException | SeatRequestException | RideNotFoundException e) {
+			throw new SeatRequestException(e.getMessage());
+		}
+	}
 
-	// TODO leave Ride
+	public void leaveRide(SeatRequestBean bean) throws SeatRequestException {
+		try {
+			Ride ride = RideCatalog.getInstance().findRide(bean.getRideId());
+			User user = UserCatalog.getInstance().findUser(bean.getPassengerId());
+			ride.leaveRide(user);
+		} catch (UserNotFoundException | SeatRequestException | RideNotFoundException e) {
+			throw new SeatRequestException(e.getMessage());
+		}
+	}
+
+	public List<RideBean> getMyRequests(SeatRequestBean bean) throws UserNotFoundException {
+		User user = UserCatalog.getInstance().findUser(bean.getPassengerId());
+		List<Ride> rideList = RideCatalog.getInstance().getRides();
+		List<RideBean> list = new ArrayList<>();
+
+		for (Ride ride : rideList) {
+			if (ride.getRequestList().contains(user)) {
+				list.add(new RideBean(ride, ride.getDriver().getFullName()));
+			}
+		}
+
+		return list;
+	}
+
+	public List<RideBean> getMyReservedSeats(SeatRequestBean bean) throws UserNotFoundException {
+		User user = UserCatalog.getInstance().findUser(bean.getPassengerId());
+		List<Ride> rideList = RideCatalog.getInstance().getRides();
+		List<RideBean> list = new ArrayList<>();
+
+		for (Ride ride : rideList) {
+			if (ride.getPassengerList().contains(user)) {
+				list.add(new RideBean(ride, ride.getDriver().getFullName()));
+			}
+		}
+
+		return list;
+	}
 }

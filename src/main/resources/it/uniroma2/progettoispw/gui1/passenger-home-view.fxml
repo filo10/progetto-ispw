@@ -20,7 +20,7 @@
                </padding>
                <children>
                   <Button contentDisplay="CENTER" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAPageButtonClick" prefWidth="150.0" text="Reserve a seat" userData="/it/uniroma2/progettoispw/gui1/pages/requestSeat-page.fxml" />
-                  <Button contentDisplay="CENTER" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAPageButtonClick" prefWidth="150.0" text="My reservations" />
+                  <Button contentDisplay="CENTER" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAPageButtonClick" prefWidth="150.0" text="My reservations" userData="/it/uniroma2/progettoispw/gui1/pages/myReservations-page.fxml" />
                   <Button contentDisplay="CENTER" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAPageButtonClick" prefWidth="150.0" text="Upgrade to Driver" userData="/it/uniroma2/progettoispw/gui1/pages/upgradetodriver-page.fxml" />
                   <Button fx:id="notificationsButton" contentDisplay="CENTER" layoutX="35.0" layoutY="85.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#onNotificationsButtonClick" prefWidth="150.0" text="Notifications" userData="/it/uniroma2/progettoispw/gui1/pages/upgradetodriver-page.fxml" />
                </children>

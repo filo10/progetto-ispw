@@ -115,3 +115,8 @@ public class RideViewController extends MyMobileViewController {
 	}
 
 }
+
+/* TODO
+	- refresh liste dopo press management button (e anche delete???)
+
+*/

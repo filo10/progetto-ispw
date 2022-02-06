@@ -22,7 +22,7 @@
                   <Button contentDisplay="CENTER" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAPageButtonClick" prefWidth="150.0" text="Offer a ride" userData="/it/uniroma2/progettoispw/gui1/pages/offerride-page.fxml" />
                   <Button contentDisplay="CENTER" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAPageButtonClick" prefWidth="150.0" text="My rides" userData="/it/uniroma2/progettoispw/gui1/pages/myRides-page.fxml"/>
                   <Button contentDisplay="CENTER" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAPageButtonClick" prefWidth="150.0" text="Reserve a seat" userData="/it/uniroma2/progettoispw/gui1/pages/requestSeat-page.fxml" />
-                  <Button contentDisplay="CENTER" layoutX="35.0" layoutY="51.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAPageButtonClick" prefWidth="150.0" text="My reservations" />
+                  <Button contentDisplay="CENTER" layoutX="35.0" layoutY="51.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAPageButtonClick" prefWidth="150.0" text="My reservations" userData="/it/uniroma2/progettoispw/gui1/pages/myReservations-page.fxml" />
                   <Button fx:id="notificationsButton" contentDisplay="CENTER" layoutX="35.0" layoutY="119.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#onNotificationsButtonClick" prefWidth="150.0" text="Notifications" />
                </children>
             </VBox>
