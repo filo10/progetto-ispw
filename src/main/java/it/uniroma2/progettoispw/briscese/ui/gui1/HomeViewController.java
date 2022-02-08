@@ -78,8 +78,8 @@ public class HomeViewController extends MyViewController {
 		notificationsButton.setText("Notifications");
 		Button pressedButton = (Button) event.getSource();
 		highlightPressedButton(pressedButton);
-		// crea una tree view con due sezioni LETTE e NON LETTE
 
+		// crea una tree view con due sezioni LETTE e NON LETTE
 		TreeItem<String> dummyRoot = new TreeItem<> (); // this is used to make it like treeview has 2 root nodes
 		TreeItem<String> rootRead = new TreeItem<> ("READ");
 		TreeItem<String> rootUnread = new TreeItem<> ("UNREAD");

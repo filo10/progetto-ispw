@@ -37,7 +37,6 @@ public class ReserveSeatController {
 		}
 	}
 
-	// TODO implementa in gui2 questi due metodi
 	public void cancelRequest(SeatRequestBean bean) throws SeatRequestException {
 		try {
 			Ride ride = RideCatalog.getInstance().findRide(bean.getRideId());

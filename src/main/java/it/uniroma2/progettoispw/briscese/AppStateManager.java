@@ -21,7 +21,7 @@ public class AppStateManager {
 			UserDAO.getInstance().retrieveUsersFromDB();
 			UpgradeRequestDAO.getInstance().retrieveUpgradeRequests();
 
-			// TODO corse e loro passegeri
+			// TODO corse e loro passegeri: RideDAO fa anche passeggeri e richieste passaggio?
 			// richieste passaggio
 
 

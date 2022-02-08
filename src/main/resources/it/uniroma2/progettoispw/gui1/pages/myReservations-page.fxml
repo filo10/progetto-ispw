@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniroma2.progettoispw.briscese.ui.gui1.passenger.MyReservationsPageController">
+<AnchorPane prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniroma2.progettoispw.briscese.ui.gui1.passenger.MyReservationsPageController">
 
     <children>
         <Label alignment="TOP_CENTER" contentDisplay="CENTER" text="My Reservations" textAlignment="CENTER" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="4.0">
@@ -21,20 +27,7 @@
                 <Insets bottom="8.0" left="8.0" right="8.0" />
             </padding>
             <children>
-            <HBox alignment="CENTER" spacing="16.0">
-               <children>
-                  <Button fx:id="incomingButton" mnemonicParsing="false" onAction="#onListsButtonsClick" style="-fx-font-weight: bold;" text="Incoming Rides" />
-                  <Button fx:id="pastButton" mnemonicParsing="false" onAction="#onListsButtonsClick" text="Past Rides" />
-                  <Button fx:id="pendingButton" mnemonicParsing="false" onAction="#onListsButtonsClick" text="Pending Requests" />
-               </children>
-               <padding>
-                  <Insets bottom="8.0" left="8.0" right="8.0" />
-               </padding>
-            </HBox>
-                <ListView fx:id="listView" prefHeight="296.0" prefWidth="484.0" VBox.vgrow="ALWAYS">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin></ListView>
+            <TreeView fx:id="treeView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                 <Separator prefWidth="200.0">
                <VBox.margin>
                   <Insets bottom="4.0" top="4.0" />

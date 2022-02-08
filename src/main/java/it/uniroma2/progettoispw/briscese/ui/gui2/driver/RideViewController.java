@@ -46,6 +46,9 @@ public class RideViewController extends MyMobileViewController {
 			fromLabel.setText(bean.getStartPoint());
 			toLabel.setText(bean.getFinishPoint());
 
+			passengersListView.getItems().clear();
+			requestsListView.getItems().clear();
+
 			for (SeatRequestBean passenger : controller.getRidePassengers(beanToSend)) {
 				String str = String.format("%s (%s)", passenger.getPassengerName(), passenger.getPassengerId());
 				passengersListView.getItems().add(str);
@@ -97,6 +100,9 @@ public class RideViewController extends MyMobileViewController {
 				SeatReplyBean beanToSend = new SeatReplyBean(rideId, passengerId, false);
 				controller.removePassenger(beanToSend);
 			}
+
+			shareRideInfo(rideId);
+
 		} catch (RideManagementException e) {
 			Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK);
 			alert.showAndWait();
@@ -108,6 +114,11 @@ public class RideViewController extends MyMobileViewController {
 			RideBean bean = new RideBean();
 			bean.setRideId(rideId);
 			controller.cancelRide(bean);
+
+			setButtonsVisible(false);
+			Alert confirmation = new Alert(Alert.AlertType.INFORMATION, "Ride deleted.", ButtonType.OK);
+			confirmation.showAndWait();
+
 		} catch (RideManagementException e) {
 			Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK);
 			alert.showAndWait();
@@ -115,8 +126,3 @@ public class RideViewController extends MyMobileViewController {
 	}
 
 }
-
-/* TODO
-	- refresh liste dopo press management button (e anche delete???)
-
-*/

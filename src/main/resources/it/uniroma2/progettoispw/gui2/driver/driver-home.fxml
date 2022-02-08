@@ -35,7 +35,7 @@
                     <Font size="18.0" />
                 </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#onNavigationButtonClick" prefHeight="50.0" prefWidth="240.0" text="My reservations" textAlignment="CENTER">
+            <Button mnemonicParsing="false" onAction="#onNavigationButtonClick" prefHeight="50.0" prefWidth="240.0" text="My reservations" textAlignment="CENTER" userData="/it/uniroma2/progettoispw/gui2/passenger/myreservations-view.fxml" >
                 <font>
                     <Font size="18.0" />
                 </font>
