@@ -36,27 +36,18 @@ public class LoginViewController extends MyViewController {
 
 			String role = receivedBean.getRole();
 
-
 			switch (role) {
 				case "passenger":
-					if (guiNumber == 1)
-						fxmlLoader.setLocation(this.getClass().getResource("/it/uniroma2/progettoispw/gui1/passenger-home-view.fxml"));
-					else fxmlLoader.setLocation(this.getClass().getResource("/it/uniroma2/progettoispw/gui2/passenger/psngr-home.fxml"));
+					pickLocationPassenger(guiNumber, fxmlLoader);
 					break;
 				case "driver":
-					if (guiNumber == 1)
-						fxmlLoader.setLocation(this.getClass().getResource("/it/uniroma2/progettoispw/gui1/driver-home-view.fxml"));
-					else fxmlLoader.setLocation(this.getClass().getResource("/it/uniroma2/progettoispw/gui2/driver/driver-home.fxml"));
+					pickLocationDriver(guiNumber, fxmlLoader);
 					break;
 				case "admin":
-					if (guiNumber == 1)
-						fxmlLoader.setLocation(this.getClass().getResource("/it/uniroma2/progettoispw/gui1/admin-home-view.fxml"));
-					else fxmlLoader.setLocation(this.getClass().getResource("/it/uniroma2/progettoispw/gui2/admin/admin-home.fxml"));
+					pickLocationAdmin(guiNumber, fxmlLoader);
 					break;
 				case "verifier":
-					if (guiNumber == 1)
-						fxmlLoader.setLocation(this.getClass().getResource("/it/uniroma2/progettoispw/gui1/verifier-home-view.fxml"));
-					else fxmlLoader.setLocation(this.getClass().getResource("/it/uniroma2/progettoispw/gui2/verifier/verifier-home.fxml"));
+					pickLocationVerifier(guiNumber, fxmlLoader);
 					break;
 				default:
 					throw new MyLoginException("No role was found for the user... Contact Client Service");
@@ -107,6 +98,34 @@ public class LoginViewController extends MyViewController {
 			errorLabel.setText("Username must be a number");
 			errorLabel.setVisible(true);
 		}
+	}
+
+	private void pickLocationPassenger(int guiNumber, FXMLLoader fxmlLoader) {
+		if (guiNumber==1)
+			fxmlLoader.setLocation(this.getClass().getResource("/it/uniroma2/progettoispw/gui1/passenger-home-view.fxml"));
+		else if (guiNumber==2)
+			fxmlLoader.setLocation(this.getClass().getResource("/it/uniroma2/progettoispw/gui2/passenger/psngr-home.fxml"));
+	}
+
+	private void pickLocationDriver(int guiNumber, FXMLLoader fxmlLoader) {
+		if (guiNumber == 1)
+			fxmlLoader.setLocation(this.getClass().getResource("/it/uniroma2/progettoispw/gui1/driver-home-view.fxml"));
+		else if (guiNumber == 2)
+			fxmlLoader.setLocation(this.getClass().getResource("/it/uniroma2/progettoispw/gui2/driver/driver-home.fxml"));
+	}
+
+	private void pickLocationAdmin(int guiNumber, FXMLLoader fxmlLoader) {
+		if (guiNumber == 1)
+			fxmlLoader.setLocation(this.getClass().getResource("/it/uniroma2/progettoispw/gui1/admin-home-view.fxml"));
+		else if (guiNumber == 2)
+			fxmlLoader.setLocation(this.getClass().getResource("/it/uniroma2/progettoispw/gui2/admin/admin-home.fxml"));
+	}
+
+	private void pickLocationVerifier(int guiNumber, FXMLLoader fxmlLoader) {
+		if (guiNumber==1)
+			fxmlLoader.setLocation(this.getClass().getResource("/it/uniroma2/progettoispw/gui1/verifier-home-view.fxml"));
+		else if (guiNumber==2)
+			fxmlLoader.setLocation(this.getClass().getResource("/it/uniroma2/progettoispw/gui2/verifier/verifier-home.fxml"));
 	}
 
 	public void onLoginGui1() {
