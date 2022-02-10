@@ -161,11 +161,11 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `progetto-ispw`;
-INSERT INTO `progetto-ispw`.`users` (`enroll_number`, `full_name`, `password`, `type`) VALUES (1, 'Mario Rossi', '1a1dc91c907325c69271ddf0c944bc72', 'passenger');
-INSERT INTO `progetto-ispw`.`users` (`enroll_number`, `full_name`, `password`, `type`) VALUES (2, 'Giuseppe Verdi', '1a1dc91c907325c69271ddf0c944bc72', 'driver');
-INSERT INTO `progetto-ispw`.`users` (`enroll_number`, `full_name`, `password`, `type`) VALUES (111, 'Amministratore', '1a1dc91c907325c69271ddf0c944bc72', 'admin');
-INSERT INTO `progetto-ispw`.`users` (`enroll_number`, `full_name`, `password`, `type`) VALUES (11, 'Verifier Uno', '1a1dc91c907325c69271ddf0c944bc72', 'verifier');
-INSERT INTO `progetto-ispw`.`users` (`enroll_number`, `full_name`, `password`, `type`) VALUES (228612, 'Filippo Maria Briscese', '1a1dc91c907325c69271ddf0c944bc72', 'passenger');
+INSERT INTO `progetto-ispw`.`users` (`enroll_number`, `full_name`, `password`, `type`) VALUES (1, 'Mario Rossi', '4e85eddf886882ca7cb893ddd3f07051', '1');
+INSERT INTO `progetto-ispw`.`users` (`enroll_number`, `full_name`, `password`, `type`) VALUES (2, 'Giuseppe Verdi', 'e2d45d57c7e2941b65c6ccd64af4223e', '2');
+INSERT INTO `progetto-ispw`.`users` (`enroll_number`, `full_name`, `password`, `type`) VALUES (111, 'Nome Cognome', '21232f297a57a5a743894a0e4a801fc3', '4');
+INSERT INTO `progetto-ispw`.`users` (`enroll_number`, `full_name`, `password`, `type`) VALUES (11, 'Tizio Verificatore', '0b5f8f06bafb3828f619f6f96fc6adb2', '3');
+INSERT INTO `progetto-ispw`.`users` (`enroll_number`, `full_name`, `password`, `type`) VALUES (228612, 'Filippo Maria Briscese', '1a1dc91c907325c69271ddf0c944bc72', '1');
 
 COMMIT;
 
