@@ -45,7 +45,8 @@ public class DBConnectionManager {
 	}
 
 	public void closeConnection() throws SQLException {
-		connection.close();
+		if (connection != null)
+			connection.close();
 	}
 
 	public Statement getScrollableStatement() throws SQLException {

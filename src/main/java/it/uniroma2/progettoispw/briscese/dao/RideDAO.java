@@ -137,18 +137,32 @@ public class RideDAO {
 
 	}
 
-	public void deletePassenger(int rideID, int passengerID) throws DBConnectionException, SQLException {
-		DBConnectionManager.getInstance().openConnection();
+	public void deletePassenger(int rideID, int passengerID) throws DBConnectionException {
+		Statement stmt = null;
+		try {
+			DBConnectionManager.getInstance().openConnection();
 
-		Statement stmt = DBConnectionManager.getInstance().getStatement();
+			stmt = DBConnectionManager.getInstance().getStatement();
 
-		String sql = String.format("DELETE FROM seat WHERE ride = %s AND passenger = %s",
-				rideID, passengerID);
-		stmt.executeUpdate(sql);
-
-		stmt.close();
-
-		DBConnectionManager.getInstance().closeConnection();
+			String sql = String.format("DELETE FROM seat WHERE ride = %s AND passenger = %s",
+					rideID, passengerID);
+			stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			try {
+				DBConnectionManager.getInstance().closeConnection();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public void addNewRide(Ride ride) {

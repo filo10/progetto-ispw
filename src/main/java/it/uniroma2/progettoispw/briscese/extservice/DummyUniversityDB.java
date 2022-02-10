@@ -12,11 +12,14 @@ public class DummyUniversityDB {
 		return instance;
 	}
 
-	public boolean isEnrolled(int enrollNumber) {
+	public int isEnrolled(int enrollNumber) {
+		/* return -1 if false, 1 if true */
 		if (enrollNumber > 300000 || enrollNumber < 100000)
-			return false;
+			return -1;
 		int count = 0;
 		for(; enrollNumber != 0; enrollNumber/=10, ++count);
-		return (count == 6);
+		if (count == 6) // if enrollNumber has 6 digits
+			return 1;
+		else return -1;
 	}
 }

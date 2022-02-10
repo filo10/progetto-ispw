@@ -4,7 +4,8 @@ import it.uniroma2.progettoispw.briscese.bean.LoginBean;
 import it.uniroma2.progettoispw.briscese.bean.NotificationBean;
 import it.uniroma2.progettoispw.briscese.dao.UserDAO;
 import it.uniroma2.progettoispw.briscese.exceptions.*;
-import it.uniroma2.progettoispw.briscese.extservice.DummyUniversityDB;
+import it.uniroma2.progettoispw.briscese.extservice.UniversityDBBoundary;
+import it.uniroma2.progettoispw.briscese.extservice.UniDBBean;
 import it.uniroma2.progettoispw.briscese.model.User;
 import it.uniroma2.progettoispw.briscese.model.UserCatalog;
 import it.uniroma2.progettoispw.briscese.model.roles.Passenger;
@@ -64,8 +65,11 @@ public class LoginController {
 			if (UserCatalog.getInstance().userExists(userId))
 				throw new SignupException("There is already a User with id=" + userId);
 
-			// controlla che userid è una matricola valida
-			if (!DummyUniversityDB.getInstance().isEnrolled(userId)) // TODO deve chiamare una classe boundary e usare bean
+			// check if userId is a valid enrollment number calling a secondary actor
+			UniversityDBBoundary secondaryActorBoundary = new UniversityDBBoundary();
+			UniDBBean uniDBBean = new UniDBBean(userId);
+			uniDBBean = secondaryActorBoundary.isStudentEnrolled(uniDBBean);
+			if (!uniDBBean.isEnrolled())
 				throw new StudentDoesNotExistException(userId);
 
 			// hash password

@@ -25,6 +25,8 @@ public class LoginViewController extends MyViewController {
 
 
 	private void doLogin(int guiNumber) {
+		if ( !( (guiNumber == 1) || (guiNumber == 2) ) )
+			return;
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader();
 
@@ -34,41 +36,30 @@ public class LoginViewController extends MyViewController {
 
 			String role = receivedBean.getRole();
 
-			if (guiNumber == 1) {
-				switch (role) {
-					case "passenger":
+
+			switch (role) {
+				case "passenger":
+					if (guiNumber == 1)
 						fxmlLoader.setLocation(this.getClass().getResource("/it/uniroma2/progettoispw/gui1/passenger-home-view.fxml"));
-						break;
-					case "driver":
+					else fxmlLoader.setLocation(this.getClass().getResource("/it/uniroma2/progettoispw/gui2/passenger/psngr-home.fxml"));
+					break;
+				case "driver":
+					if (guiNumber == 1)
 						fxmlLoader.setLocation(this.getClass().getResource("/it/uniroma2/progettoispw/gui1/driver-home-view.fxml"));
-						break;
-					case "admin":
+					else fxmlLoader.setLocation(this.getClass().getResource("/it/uniroma2/progettoispw/gui2/driver/driver-home.fxml"));
+					break;
+				case "admin":
+					if (guiNumber == 1)
 						fxmlLoader.setLocation(this.getClass().getResource("/it/uniroma2/progettoispw/gui1/admin-home-view.fxml"));
-						break;
-					case "verifier":
+					else fxmlLoader.setLocation(this.getClass().getResource("/it/uniroma2/progettoispw/gui2/admin/admin-home.fxml"));
+					break;
+				case "verifier":
+					if (guiNumber == 1)
 						fxmlLoader.setLocation(this.getClass().getResource("/it/uniroma2/progettoispw/gui1/verifier-home-view.fxml"));
-						break;
-					default:
-						throw new MyLoginException("No role was found for the users... Contact Client Service");
-				}
-			}
-			else if (guiNumber == 2) {
-				switch (role) {
-					case "passenger":
-						fxmlLoader.setLocation(this.getClass().getResource("/it/uniroma2/progettoispw/gui2/passenger/psngr-home.fxml"));
-						break;
-					case "driver":
-						fxmlLoader.setLocation(this.getClass().getResource("/it/uniroma2/progettoispw/gui2/driver/driver-home.fxml"));
-						break;
-					case "admin":
-						fxmlLoader.setLocation(this.getClass().getResource("/it/uniroma2/progettoispw/gui2/admin-home-view.fxml"));
-						break;
-					case "verifier":
-						fxmlLoader.setLocation(this.getClass().getResource("/it/uniroma2/progettoispw/gui2/verifier/verifier-home.fxml"));
-						break;
-					default:
-						throw new MyLoginException("No role was found for the users...\nTry again or contact Client Service");
-				}
+					else fxmlLoader.setLocation(this.getClass().getResource("/it/uniroma2/progettoispw/gui2/verifier/verifier-home.fxml"));
+					break;
+				default:
+					throw new MyLoginException("No role was found for the user... Contact Client Service");
 			}
 
 			SessionToken sessionToken = new SessionToken(receivedBean.getUserId(), receivedBean.getFullName(), role);
@@ -86,7 +77,7 @@ public class LoginViewController extends MyViewController {
 				nextViewController.setNotificationBean(notificationBean);
 				nextViewController.injectSessionToken();
 			}
-			else if (guiNumber == 2) {
+			else {
 				MyViewController nextViewController = fxmlLoader.getController();
 				nextViewController.setSessionToken(sessionToken);
 				notificationBean.setViewController(nextViewController);

@@ -24,12 +24,16 @@ public class AppStateManager {
 			UpgradeRequestDAO.getInstance().retrieveUpgradeRequests();
 			RideDAO.getInstance().retrieveRides();
 
-			DBConnectionManager.getInstance().closeConnection();
-
 		} catch (SQLException | DBConnectionException | CannotAddRoleException | UserNotFoundException | RoleException e) {
 			String message = "Critical error while retrieving from DB:\n" + e.getMessage();
-			// TODO chiudi la connessione
 			throw new AppStateException(message);
+		}
+		finally {
+			try {
+				DBConnectionManager.getInstance().closeConnection();
+			} catch (SQLException | DBConnectionException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -41,12 +45,16 @@ public class AppStateManager {
 			UpgradeRequestDAO.getInstance().saveUpgradeRequests();
 			RideDAO.getInstance().saveRides();
 
-			DBConnectionManager.getInstance().closeConnection();
 		} catch (SQLException | DBConnectionException e) {
 			String message = "Critical error:\n" + e.getMessage();
-			// TODO chiudi la connessione...
-			// TODO vedi chiusura connessione anche per deletePasenger in ridedao
 			throw new AppStateException(message);
+		}
+		finally {
+			try {
+				DBConnectionManager.getInstance().closeConnection();
+			} catch (SQLException | DBConnectionException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }
