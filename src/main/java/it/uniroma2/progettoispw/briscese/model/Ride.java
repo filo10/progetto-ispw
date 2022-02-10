@@ -1,8 +1,11 @@
 package it.uniroma2.progettoispw.briscese.model;
 
+import it.uniroma2.progettoispw.briscese.dao.RideDAO;
 import it.uniroma2.progettoispw.briscese.exceptions.RoleException;
 import it.uniroma2.progettoispw.briscese.exceptions.SeatRequestException;
+import it.uniroma2.progettoispw.briscese.utilities.DBConnectionException;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -80,20 +83,24 @@ public class Ride {
 		}
 	}
 
-	public void removePassenger(User passenger) throws SeatRequestException {
+	public void removePassenger(User passenger) throws SeatRequestException, SQLException, DBConnectionException {
 		if (date.isBefore(LocalDate.now()))
 			throw new SeatRequestException("You can't remove passengers from a ride in the past.");
 		if (!passengerList.contains(passenger))
 			throw new SeatRequestException("The user you want to remove is not a passenger of this ride.");
-		if (passengerList.remove(passenger))
+		if (passengerList.remove(passenger)) {
+			RideDAO.getInstance().deletePassenger(this.rideId, passenger.getUserId());
 			passenger.publishNotification("You've been removed from " + this);
+		}
 	}
 
-	public void leaveRide(User passenger) throws SeatRequestException {
+	public void leaveRide(User passenger) throws SeatRequestException, SQLException, DBConnectionException {
 		if (date.isBefore(LocalDate.now()))
 			throw new SeatRequestException("You can't leave a ride in the past.");
-		if (passengerList.remove(passenger))
+		if (passengerList.remove(passenger)) {
+			RideDAO.getInstance().deletePassenger(this.rideId, passenger.getUserId());
 			driver.publishNotification("The passenger " + passenger.getUserId() + " left: " + this);
+		}
 		else
 			throw new SeatRequestException("You are not a passenger for this ride.");
 	}
@@ -154,5 +161,13 @@ public class Ride {
 
 	public List<User> getPassengerList() {
 		return passengerList;
+	}
+
+	public void setPassengerList(List<User> passengerList) {
+		this.passengerList = passengerList;
+	}
+
+	public void setRequestList(List<User> requestList) {
+		this.requestList = requestList;
 	}
 }

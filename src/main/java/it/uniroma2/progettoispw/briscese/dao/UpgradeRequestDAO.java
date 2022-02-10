@@ -14,7 +14,7 @@ import java.util.List;
 
 public class UpgradeRequestDAO {
 	private static UpgradeRequestDAO instance = null;
-	private List<UpgradeRequest> newRequests;
+	private List<UpgradeRequest> newRequests; // the request created in this execution of the app
 
 
 	private UpgradeRequestDAO() {

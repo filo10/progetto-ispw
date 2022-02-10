@@ -60,18 +60,18 @@ public class LoginController {
 			String fullName = bean.getFullName();
 			String password = bean.getPassword();
 
-			// controlla che userid non sia già usato da un user
+			// check userID is not already used
 			if (UserCatalog.getInstance().userExists(userId))
 				throw new SignupException("There is already a User with id=" + userId);
 
 			// controlla che userid è una matricola valida
-			if (!DummyUniversityDB.getInstance().isEnrolled(userId))
+			if (!DummyUniversityDB.getInstance().isEnrolled(userId)) // TODO deve chiamare una classe boundary e usare bean
 				throw new StudentDoesNotExistException(userId);
 
 			// hash password
 			String hashedPassword = hashPassword(password);
 
-			// crea user
+			// create user
 			User newUser = UserCatalog.getInstance().newUser(userId, fullName, hashedPassword, new Passenger());
 			UserDAO.getInstance().newUser(newUser);
 

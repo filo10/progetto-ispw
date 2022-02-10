@@ -1,5 +1,6 @@
 package it.uniroma2.progettoispw.briscese.model;
 
+import it.uniroma2.progettoispw.briscese.dao.RideDAO;
 import it.uniroma2.progettoispw.briscese.exceptions.RideNotFoundException;
 import it.uniroma2.progettoispw.briscese.exceptions.RoleException;
 
@@ -11,7 +12,7 @@ import java.util.List;
 public class RideCatalog {
 	private static RideCatalog instance = null;
 
-	private int nextId; // TODO vedi requestCatalog. setta da DB
+	private int nextId;
 	private List<Ride> rideList;
 
 
@@ -29,6 +30,8 @@ public class RideCatalog {
 		Ride ride = new Ride(nextId, driver, numberOfSeats, startPoint, finishPoint, date, time);
 		rideList.add(ride);
 		nextId++;
+
+		RideDAO.getInstance().addNewRide(ride);
 
 		return ride;
 	}
@@ -56,6 +59,14 @@ public class RideCatalog {
 
 	public void deleteRide(Ride ride) {
 		rideList.remove(ride);
+		RideDAO.getInstance().addDeletedRide(ride);
 	}
 
+	public void setNextId(int nextId) {
+		this.nextId = nextId;
+	}
+
+	public void setRideList(List<Ride> rideList) {
+		this.rideList = rideList;
+	}
 }

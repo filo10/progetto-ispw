@@ -9,7 +9,9 @@ import it.uniroma2.progettoispw.briscese.model.Ride;
 import it.uniroma2.progettoispw.briscese.model.RideCatalog;
 import it.uniroma2.progettoispw.briscese.model.User;
 import it.uniroma2.progettoispw.briscese.model.UserCatalog;
+import it.uniroma2.progettoispw.briscese.utilities.DBConnectionException;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -52,7 +54,7 @@ public class ReserveSeatController {
 			Ride ride = RideCatalog.getInstance().findRide(bean.getRideId());
 			User user = UserCatalog.getInstance().findUser(bean.getPassengerId());
 			ride.leaveRide(user);
-		} catch (UserNotFoundException | SeatRequestException | RideNotFoundException e) {
+		} catch (UserNotFoundException | SeatRequestException | RideNotFoundException | SQLException | DBConnectionException e) {
 			throw new SeatRequestException(e.getMessage());
 		}
 	}

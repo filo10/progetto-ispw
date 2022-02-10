@@ -8,7 +8,9 @@ import it.uniroma2.progettoispw.briscese.model.Ride;
 import it.uniroma2.progettoispw.briscese.model.RideCatalog;
 import it.uniroma2.progettoispw.briscese.model.User;
 import it.uniroma2.progettoispw.briscese.model.UserCatalog;
+import it.uniroma2.progettoispw.briscese.utilities.DBConnectionException;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -94,7 +96,7 @@ public class ManageRideController {
 		try {
 			Ride ride = RideCatalog.getInstance().findRide(bean.getRideId());
 			ride.removePassenger(UserCatalog.getInstance().findUser(bean.getPassengerId()));
-		} catch (RideNotFoundException | UserNotFoundException | SeatRequestException e) {
+		} catch (RideNotFoundException | UserNotFoundException | SeatRequestException | SQLException | DBConnectionException e) {
 			throw new RideManagementException(e.getMessage());
 		}
 	}
