@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial;
+}
+
+/* The grid: Four equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 20%;
+  padding: 10px;
+}
+
+/* Style the images inside the grid */
+.column img {
+  opacity: 0.8; 
+  cursor: pointer; 
+}
+
+.column img:hover {
+  opacity: 1;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* The expanding image container */
+.container {
+  position: relative;
+  display: none;
+}
+
+/* Closable button inside the expanded image */
+.closebtn {
+  position: absolute;
+  top: 7px;
+  right: 35px;
+  color: black;
+  font-size: 35px;
+  cursor: pointer;
+}
+</style>
+</head>
+<body style="background-color: grey">
+
+<div>
+  <h1>Ubergata - UI prototypes</h1>
+  <p>Click on the images below to expand:</p>
+</div>
+
+<!-- row -->
+<div class="row">
+  <div class="column">
+    <img src="cercapassaggio.png" alt="Search for a Seat" style="width:100%" onclick="myFunction(this);">
+	<p>Search for a seat</p>
+  </div>
+  <div class="column">
+    <img src="fmb-offriPassaggio.png" alt="Offer a Ride" style="width:100%" onclick="myFunction(this);">
+	<p>Offer a ride</p>
+  </div>
+  <div class="column">
+    <img src="lemiecorse.png" alt="My Rides" style="width:100%" onclick="myFunction(this);">
+	<p>Reply seat request</p>
+  </div>
+  <div class="column">
+    <img src="verificapatente.png" alt="Verify license" style="width:100%" onclick="myFunction(this);">
+	<p>Verify license</p>
+  </div>
+</div>
+
+<br>
+
+<div class="container" align="center">
+  <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+  <img id="expandedImg" style="width:90%">
+<!--  <div id="imgtext"></div> !-->
+</div>
+
+<script>
+function myFunction(imgs) {
+  var expandImg = document.getElementById("expandedImg");
+  expandImg.src = imgs.src;
+  expandImg.parentElement.style.display = "block";
+}
+</script>
+
+</body>
+</html>

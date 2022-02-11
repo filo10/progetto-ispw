@@ -96,6 +96,82 @@
       "targets": [],
       "value": ""
     }]
+  }, {
+    "id": "9c993dd6-93d0-4c25-a076-b3f02b2a8eb8",
+    "name": "testFoundationYear",
+    "commands": [{
+      "id": "c26ebe55-cf89-4a43-acc1-e3fd0439a987",
+      "comment": "",
+      "command": "open",
+      "target": "https://duckduckgo.com/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "59200199-c52f-408d-8bd3-4ea0e2dd967f",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1011x778",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2ec01b8b-8e16-4e69-b27f-d60cca00c46e",
+      "comment": "",
+      "command": "type",
+      "target": "id=search_form_input_homepage",
+      "targets": [
+        ["id=search_form_input_homepage", "id"],
+        ["name=q", "name"],
+        ["css=#search_form_input_homepage", "css:finder"],
+        ["xpath=//input[@id='search_form_input_homepage']", "xpath:attributes"],
+        ["xpath=//form[@id='search_form_homepage']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "associazione sportiva roma wikipedia"
+    }, {
+      "id": "ee179036-04ea-4da7-8d07-3bf8cba29be7",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=search_form_input_homepage",
+      "targets": [
+        ["id=search_form_input_homepage", "id"],
+        ["name=q", "name"],
+        ["css=#search_form_input_homepage", "css:finder"],
+        ["xpath=//input[@id='search_form_input_homepage']", "xpath:attributes"],
+        ["xpath=//form[@id='search_form_homepage']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "c6f07c40-07f0-4f4b-848e-fa308157401e",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Associazione Sportiva Roma - Wikipedia",
+      "targets": [
+        ["linkText=Associazione Sportiva Roma - Wikipedia", "linkText"],
+        ["css=#r1-0 .result__a", "css:finder"],
+        ["xpath=//a[contains(text(),'Associazione Sportiva Roma - Wikipedia')]", "xpath:link"],
+        ["xpath=//div[@id='r1-0']/div/h2/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'https://it.wikipedia.org/wiki/Associazione_Sportiva_Roma')]", "xpath:href"],
+        ["xpath=//h2/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Associazione Sportiva Roma - Wikipedia')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "45ff8343-b141-46a4-92af-7a89d76e57ff",
+      "comment": "",
+      "command": "assertText",
+      "target": "linkText=1927",
+      "targets": [
+        ["linkText=1927", "linkText"],
+        ["css=tr:nth-child(15) a", "css:finder"],
+        ["xpath=//a[contains(text(),'1927')]", "xpath:link"],
+        ["xpath=//div[@id='mw-content-text']/div/table/tbody/tr[15]/td/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/wiki/1927')]", "xpath:href"],
+        ["xpath=//tr[15]/td/a", "xpath:position"],
+        ["xpath=//a[contains(.,'1927')]", "xpath:innerText"]
+      ],
+      "value": "1927"
+    }]
   }],
   "suites": [{
     "id": "4b8feddd-19a8-4edd-b9ff-331a2dfcedc3",
