@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<title>Ubergata - Storyboards</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 * {
@@ -40,6 +41,8 @@ body {
 .container {
   position: relative;
   display: none;
+  margin: auto;
+  width: 95%;
 }
 
 /* Closable button inside the expanded image */
@@ -57,6 +60,7 @@ body {
 
 <div>
   <h1>Ubergata - UI prototypes</h1>
+  <p>Author: Filippo Maria Briscese</p>
   <p>Click on the images below to expand:</p>
 </div>
 
@@ -82,10 +86,9 @@ body {
 
 <br>
 
-<div class="container" align="center">
+<div class="container">
   <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
-  <img id="expandedImg" style="width:90%">
-<!--  <div id="imgtext"></div> !-->
+  <img id="expandedImg" style="width:90%" alt="Expanded image">
 </div>
 
 <script>
