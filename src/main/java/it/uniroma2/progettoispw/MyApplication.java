@@ -27,7 +27,9 @@ public class MyApplication extends Application {
 	}
 
 	@Override
-	public  void init(){ // this is called automatically before start()
+	public  void init(){
+		// this is called automatically before start()
+
 		// retrieve application state from the DB
 		try {
 			AppStateManager.loadAppState();
@@ -37,7 +39,9 @@ public class MyApplication extends Application {
 	}
 
 	@Override
-	public void stop(){ // this is called automatically after Platform.exit()
+	public void stop(){
+		// this is called automatically after Platform.exit()
+
 		// save application state on the DB
 		try {
 			AppStateManager.saveAppState();
@@ -49,4 +53,5 @@ public class MyApplication extends Application {
 	public static void main(String[] args) {
 		launch();
 	}
+
 }

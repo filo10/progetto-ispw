@@ -60,8 +60,4 @@ public class VerifierHomeViewController extends HomeViewController implements Ob
 		logicController.detach(this);
 	}
 
-
-
-	// TODO uniformare view?
-	// TODO uniformare notifiche?
 }
