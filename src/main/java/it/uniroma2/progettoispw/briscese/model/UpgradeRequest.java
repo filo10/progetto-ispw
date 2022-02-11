@@ -17,6 +17,8 @@ public class UpgradeRequest {
 	private UpgradeToDriverController controller;
 
 
+	public UpgradeRequest() {}
+
 	public UpgradeRequest(UpgradeToDriverController controller, int id, User user, String licenseCode, LocalDate licenseExpiration) {
 		this.controller = controller;
 		requestId = id;

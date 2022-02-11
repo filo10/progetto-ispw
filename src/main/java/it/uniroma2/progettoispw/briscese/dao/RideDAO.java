@@ -95,11 +95,6 @@ public class RideDAO {
 	public void saveRides() throws DBConnectionException, SQLException {
 		Statement statement = DBConnectionManager.getInstance().getStatement();
 
-		// delete from DB rides deleted in this execution. passengers and requests will be deleted with sql CASCADE.
-		for (Ride deletedRide : deletedRides) {
-			statement.executeUpdate("DELETE FROM rides WHERE id = " + deletedRide.getRideId());
-		}
-
 		// save rides created in this execution
 		for (Ride newRide : newRides) {
 			String sql = String.format("INSERT INTO rides (id, date, time, start, destination, driver, number_of_seats) VALUES (%s, '%s', '%s', '%s', '%s', %s, %s)",
@@ -111,6 +106,11 @@ public class RideDAO {
 					newRide.getDriver().getUserId(),
 					newRide.getNumberOfSeats());
 			statement.executeUpdate(sql);
+		}
+
+		// delete from DB rides deleted in this execution. passengers and requests will be deleted with sql CASCADE.
+		for (Ride deletedRide : deletedRides) {
+			statement.executeUpdate("DELETE FROM rides WHERE id = " + deletedRide.getRideId());
 		}
 
 		statement.executeUpdate("TRUNCATE seat_request");

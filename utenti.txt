@@ -1,0 +1,6 @@
+userID	password	ruolo
+-----------------------------------------
+1	passenger	passenger
+2	driver		driver
+11	verifier	verifier
+111	admin		admin

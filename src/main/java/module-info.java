@@ -15,4 +15,9 @@ module it.uniroma2.progettoispw {
 	opens it.uniroma2.progettoispw.briscese.ui.gui1.passenger to javafx.fxml;
 	opens it.uniroma2.progettoispw.briscese.ui.gui1.verifier to javafx.fxml;
 	opens it.uniroma2.progettoispw.briscese.ui.gui1.driver to javafx.fxml;
+
+	exports it.uniroma2.progettoispw.briscese.exceptions;
+	exports it.uniroma2.progettoispw.briscese.model;
+	exports it.uniroma2.progettoispw.briscese.model.roles;
+
 }

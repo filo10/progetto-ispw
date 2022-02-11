@@ -14,6 +14,7 @@ public class User {
 	private String password;
 	private List<UserRole> roles = new ArrayList<>();
 	private List<String> notificationBacklog = new ArrayList<>();
+	private static final String DRIVER = "driver";
 
 	public User(int userId, String fullName, String password, Passenger passenger) {
 		this.userId = userId;
@@ -26,7 +27,6 @@ public class User {
 		this.userId = userId;
 		this.fullName = fullName;
 		this.password = password;
-
 	}
 
 	public boolean hasRole(String roleName) {
@@ -52,10 +52,11 @@ public class User {
 	}
 
 	private boolean canAddRole(UserRole value) {
-		if (roles.isEmpty())	// if User has no roles
-			return true;
-		else if (this.hasRole("passenger") && !this.hasRole("driver") ) { // if User is only a Passenger
-			return value.hasType("driver");    // can be also a Driver
+		if (roles.isEmpty()) {    // if User has no roles
+			return !value.hasType(DRIVER);
+		}
+		else if (this.hasRole("passenger") && !this.hasRole(DRIVER) ) { // if User is only a Passenger
+			return value.hasType(DRIVER);    // can be also a Driver
 		}
 		return false;
 	}

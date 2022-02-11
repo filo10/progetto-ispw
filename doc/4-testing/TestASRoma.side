@@ -1,0 +1,110 @@
+{
+  "id": "3e5d0544-a30d-4b06-9937-ce1af1230c1f",
+  "version": "2.0",
+  "name": "TestASRoma",
+  "url": "https://www.duckduckgo.com/",
+  "tests": [{
+    "id": "76ed0641-9995-4cc5-84f0-ac8a700c5058",
+    "name": "testStandings",
+    "commands": [{
+      "id": "91e6ca8b-4c5d-4e8d-8be7-b0436e6fb7b0",
+      "comment": "",
+      "command": "open",
+      "target": "https://duckduckgo.com/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "cc24575f-19c9-4c3b-b7ee-91d6a48b9eec",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1422x778",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3c326a25-f3e8-4dc7-881c-bffec41f3437",
+      "comment": "",
+      "command": "click",
+      "target": "id=search_form_input_homepage",
+      "targets": [
+        ["id=search_form_input_homepage", "id"],
+        ["name=q", "name"],
+        ["css=#search_form_input_homepage", "css:finder"],
+        ["xpath=//input[@id='search_form_input_homepage']", "xpath:attributes"],
+        ["xpath=//form[@id='search_form_homepage']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c419c1db-dcde-471b-9812-94de8ade9878",
+      "comment": "",
+      "command": "type",
+      "target": "id=search_form_input_homepage",
+      "targets": [
+        ["id=search_form_input_homepage", "id"],
+        ["name=q", "name"],
+        ["css=#search_form_input_homepage", "css:finder"],
+        ["xpath=//input[@id='search_form_input_homepage']", "xpath:attributes"],
+        ["xpath=//form[@id='search_form_homepage']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "as roma standings"
+    }, {
+      "id": "8ba98921-9e8c-4362-92a6-c9cd9d4e15a7",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=search_form_input_homepage",
+      "targets": [
+        ["id=search_form_input_homepage", "id"],
+        ["name=q", "name"],
+        ["css=#search_form_input_homepage", "css:finder"],
+        ["xpath=//input[@id='search_form_input_homepage']", "xpath:attributes"],
+        ["xpath=//form[@id='search_form_homepage']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "58033fcf-e5c1-4e8f-8340-e43282745212",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Standings - A.S. Roma",
+      "targets": [
+        ["linkText=Standings - A.S. Roma", "linkText"],
+        ["css=#r1-0 .result__a", "css:finder"],
+        ["xpath=//a[contains(text(),'Standings - A.S. Roma')]", "xpath:link"],
+        ["xpath=//div[@id='r1-0']/div/h2/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'https://www.asroma.com/en/standings')]", "xpath:href"],
+        ["xpath=//div[5]/div/div/h2/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Standings - A.S. Roma')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8ff0cce6-24a0-48ec-9df6-fbfa85d4a893",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.s-table-view-body-row--standings-favorite-team .s-team-link__text--full",
+      "targets": [
+        ["css=.s-table-view-body-row--standings-favorite-team .s-team-link__text--full", "css:finder"],
+        ["xpath=//section[@id='id-1212742145']/div/div/div/div/div/div/div/table/tbody/tr[7]/td[2]/a/span[2]", "xpath:idRelative"],
+        ["xpath=//tr[7]/td[2]/a/span[2]", "xpath:position"]
+      ],
+      "value": "Roma"
+    }, {
+      "id": "abed178c-7ff3-4474-ae03-04dd542de653",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "4b8feddd-19a8-4edd-b9ff-331a2dfcedc3",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["https://www.google.com/", "https://www.duckduckgo.com/"],
+  "plugins": []
+}

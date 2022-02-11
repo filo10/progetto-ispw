@@ -5,7 +5,6 @@ import it.uniroma2.progettoispw.briscese.exceptions.RoleException;
 import it.uniroma2.progettoispw.briscese.exceptions.SeatRequestException;
 import it.uniroma2.progettoispw.briscese.utilities.DBConnectionException;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -83,7 +82,7 @@ public class Ride {
 		}
 	}
 
-	public void removePassenger(User passenger) throws SeatRequestException, SQLException, DBConnectionException {
+	public void removePassenger(User passenger) throws SeatRequestException, DBConnectionException {
 		if (date.isBefore(LocalDate.now()))
 			throw new SeatRequestException("You can't remove passengers from a ride in the past.");
 		if (!passengerList.contains(passenger))
@@ -94,7 +93,7 @@ public class Ride {
 		}
 	}
 
-	public void leaveRide(User passenger) throws SeatRequestException, SQLException, DBConnectionException {
+	public void leaveRide(User passenger) throws SeatRequestException, DBConnectionException {
 		if (date.isBefore(LocalDate.now()))
 			throw new SeatRequestException("You can't leave a ride in the past.");
 		if (passengerList.remove(passenger)) {
