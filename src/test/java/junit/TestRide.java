@@ -38,7 +38,7 @@ public class TestRide {
 	}
 
 	@Test
-	public void testRequestSeat_FullRide() {
+	public void testRequestSeatFullRide() {
 		boolean output = false;
 
 		try {
@@ -74,7 +74,7 @@ public class TestRide {
 	}
 
 	@Test
-	public void testRequestSeat_RideInThePast() {
+	public void testRequestSeatRideInThePast() {
 		boolean output = false;
 
 		try {

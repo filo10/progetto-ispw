@@ -18,7 +18,7 @@ public class TestUser {
 	 */
 
 	@Test
-	public void testAddRole_DriverToNonPassenger() {
+	public void testAddRoleDriverToNonPassenger() {
 		boolean output = false;
 		try {
 			User user = new User(1000, "name surname", "pwd");
