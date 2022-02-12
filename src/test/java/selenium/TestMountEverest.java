@@ -15,24 +15,22 @@ public class TestMountEverest {
 	public void testHeight() {
 		System.setProperty("webdriver.gecko.driver", "driver/geckodriver.exe");
 		WebDriver driver = new FirefoxDriver();
-		driver.get("https://www.google.com/");
+		driver.get("https://en.wikipedia.org/");
 
-		// accept cookies
-		driver.findElement(By.xpath("//*[@id=\"L2AGLb\"]")).click();
-
-		// write inside searchbox
-		driver.findElement(By.xpath("/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/input")).sendKeys("mount everest height");
+		// write inside search box
+		driver.findElement(By.xpath("//*[@id=\"searchInput\"]")).sendKeys("everest");
 
 		// click search
-		driver.findElement(By.xpath("/html/body/div[1]/div[3]/form/div[1]/div[1]/div[3]/center/input[1]")).click();
+		driver.findElement(By.xpath("//*[@id=\"searchButton\"]")).click();
 
 
 		// read
-		WebElement heightBox = driver.findElement(By.xpath("/html/body/div[7]/div/div[10]/div[1]/div[2]/div[2]/div/div/div[1]/div/div[1]/div/div[1]/div[1]/div/div[2]/div/div/div/div[1]"));
-		String output = heightBox.getText();
-
-		assertEquals("8.849 m", output);
+		WebElement heightBox = driver.findElement(By.xpath("/html/body/div[3]/div[3]/div[5]/div[1]/table[1]/tbody/tr[4]/td"));
+		String heightBoxText = heightBox.getText();
+		String output = heightBoxText.substring(0, 10);
 
 		driver.close();
+
+		assertEquals("8,848.86 m", output);
 	}
 }
